@@ -26,10 +26,10 @@
 ### 🌪️ The Vacuum Field
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.38.png" width="45%">
-  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.41.png" width="45%">
-  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.18.png" width="45%">
-  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.09.png" width="45%">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.38.png" width="45%" alt="Items being vacuumed to player (Particles: OFF)">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.41.png" width="45%" alt="Items phasing through walls (Particles: OFF)">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.18.png" width="45%" alt="Items being vacuumed to player (Particles: ON)">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.09.png" width="45%" alt="Items flowing with particle trails (Particles: ON)">
 </p>
 
 Items within range (Default: **12 blocks**) happen to you.
@@ -41,7 +41,7 @@ Items within range (Default: **12 blocks**) happen to you.
 ### ⚙️ Pure GameRules
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.27.56.png">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.27.56.png" alt="Minecraft Game Rules screen showing the Magnet, Let me get that! category">
 </p>
 
 Configure everything via the vanilla **Edit Game Rules** screen or commands.
