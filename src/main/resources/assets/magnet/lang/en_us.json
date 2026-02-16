@@ -1,0 +1,18 @@
+{
+    "gamerule.category.magnet.magnet_category": "IG: Magnet",
+    "gamerule.minecraft.ig_magnet_range": "Magnet Range",
+    "gamerule.minecraft.ig_magnet_range.description": "The radius (in blocks) within which items and XP orbs are pulled towards the player. Set to 0 to disable.",
+    "gamerule.minecraft.ig_magnet_noclip": "Magnet Phase Shifting",
+    "gamerule.minecraft.ig_magnet_noclip.description": "If enabled, items and XP orbs will be pulled through solid blocks (walls, floors) to reach you.",
+    "gamerule.minecraft.ig_magnet_affects_xp": "Magnet Affects XP",
+    "gamerule.minecraft.ig_magnet_affects_xp.description": "If enabled, the magnet will also attract Experience Orbs.",
+    "gamerule.minecraft.ig_magnet_particles": "Magnet Visuals",
+    "gamerule.minecraft.ig_magnet_particles.description": "If enabled, items will leave a particle trail while being magnetized towards you.",
+    "gamerule.minecraft.ig_magnet_particle_count": "Magnet Particle Count",
+    "gamerule.minecraft.ig_magnet_particle_count.description": "The number of particles spawned per tick per entity when pulled. Higher values = denser trails.",
+    "gamerule.minecraft.ig_magnet_speed": "Magnet Speed %",
+    "gamerule.minecraft.ig_magnet_speed.description": "The pulling speed as a percentage of maximum terminal velocity (1-100). 80 = 80%.",
+    "gamerule.minecraft.ig_magnet_acceleration": "Magnet Acceleration %",
+    "gamerule.minecraft.ig_magnet_acceleration.description": "How quickly items accelerate towards you (1-100). Higher values mean snappier movement.",
+    "gamerule.category.misc": "Miscellaneous"
+}
