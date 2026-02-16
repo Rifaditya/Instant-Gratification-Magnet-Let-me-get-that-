@@ -1,5 +1,6 @@
 {
-    "gamerule.category.magnet.magnet_category": "IG: Magnet",
+    "gamerule.category.magnet.magnet_category": "Magnet, Let me get that!",
+    "gamerule.category.magnet": "Magnet, Let me get that!",
     "gamerule.minecraft.ig_magnet_range": "Magnet Range",
     "gamerule.minecraft.ig_magnet_range.description": "The radius (in blocks) within which items and XP orbs are pulled towards the player. Set to 0 to disable.",
     "gamerule.minecraft.ig_magnet_noclip": "Magnet Phase Shifting",
