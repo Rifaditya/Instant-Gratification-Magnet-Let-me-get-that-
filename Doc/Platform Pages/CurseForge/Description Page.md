@@ -25,6 +25,13 @@
 
 ### 🌪️ The Vacuum Field
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.38.png" width="45%">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.41.png" width="45%">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.18.png" width="45%">
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.09.png" width="45%">
+</p>
+
 Items within range (Default: **12 blocks**) happen to you.
 
 - **Phase Shifting (NoClip)**: Items don't get stuck on walls. They phase through terrain to reach you.
@@ -34,8 +41,7 @@ Items within range (Default: **12 blocks**) happen to you.
 ### ⚙️ Pure GameRules
 
 <p align="center">
-  <!-- Placeholder for screenshot of GameRules screen -->
-  <!-- <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet/refs/heads/main/Images/gamerules.png"> -->
+  <img src="https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.27.56.png">
 </p>
 
 Configure everything via the vanilla **Edit Game Rules** screen or commands.
