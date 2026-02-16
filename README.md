@@ -27,3 +27,10 @@ Located in the **Misc** category of the Game Rules screen.
 ## License
 
 GPL-3.0-or-later
+
+## Gallery
+
+![Magnet In Action 1](https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.38.png)
+![Magnet In Action 2](https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.53.41.png)
+![Magnet Settings 1](https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.18.png)
+![Magnet Settings 2](https://raw.githubusercontent.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/main/images/2026-02-16_11.32.09.png)
