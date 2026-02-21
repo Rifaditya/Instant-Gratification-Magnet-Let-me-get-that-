@@ -1,5 +1,14 @@
 # Changelog History
 
+## [1.0.0+build.2] - 2026-02-21
+
+### Changed
+
+- **Refactor**: Replaced legacy `GameRulesInvoker` mixins and registry boilerplate with standard `DynamicGameRuleManager` calls.
+- **Dependency**: Added `dasik-library` as a standalone compile dependency.
+- **Optimization**: Eliminated `magnet.mixins.json` and static language translations.
+
+
 ## [1.0.0] - 2026-02-16
 
 ### Added

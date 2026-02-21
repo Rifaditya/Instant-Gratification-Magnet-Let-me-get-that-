@@ -22,13 +22,11 @@
             "net.instantgratification.magnet.MagnetModClient"
         ]
     },
-    "mixins": [
-        "magnet.mixins.json"
-    ],
     "depends": {
         "fabricloader": ">=0.16.10",
         "minecraft": "~26.1-",
         "java": ">=25",
-        "fabric-api": "*"
+        "fabric-api": "*",
+        "dasik-library": "*"
     }
 }

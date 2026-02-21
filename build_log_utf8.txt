@@ -1,0 +1,522 @@
+﻿
+> Configure project :
+Fabric Loom: 1.14.7
+The mixin annotation is no longer enabled by default, you should remove any loom.mixin configuration. If you wish to continue to use the mixin AP you can set useLegacyMixinAp = true.
+
+> Task :compileJava FAILED
+./gradlew : 
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:3: error: 
+package net.dasik.socia
+l.api.gamerule does 
+not exist
+At line:1 char:1
++ ./gradlew 
+compileJava > 
+build_log.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (E:\Minecraft    
+ Pr... does not exi    
+st:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+import net.dasik.social
+.api.gamerule.DynamicGa
+meRuleManager;
+                       
+             ^
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:11: 
+error: cannot find 
+symbol
+    public static 
+final GameRuleCategory 
+MAGNET_CATEGORY = 
+DynamicGameRuleManager
+                       
+                       
+             ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:24: 
+error: cannot find 
+symbol
+        MAGNET_RANGE = 
+DynamicGameRuleManager.
+registerInteger("ig_mag
+net_range", 
+MAGNET_CATEGORY, 12);
+                       
+^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:25: 
+error: cannot find 
+symbol
+        MAGNET_NOCLIP 
+= DynamicGameRuleManage
+r.registerBoolean("ig_m
+agnet_noclip", 
+MAGNET_CATEGORY, true);
+                       
+ ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:26: 
+error: cannot find 
+symbol
+        
+MAGNET_AFFECTS_XP = Dyn
+amicGameRuleManager.reg
+isterBoolean("ig_magnet
+_affects_xp", 
+MAGNET_CATEGORY, true);
+                       
+     ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:27: 
+error: cannot find 
+symbol
+        
+MAGNET_PARTICLES = Dyna
+micGameRuleManager.regi
+sterBoolean("ig_magnet_
+particles", 
+MAGNET_CATEGORY, true);
+                       
+    ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:28: 
+error: cannot find 
+symbol
+        
+MAGNET_PARTICLE_COUNT 
+= DynamicGameRuleManage
+r.registerInteger("ig_m
+agnet_particle_count", 
+MAGNET_CATEGORY, 1);
+                       
+         ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:29: 
+error: cannot find 
+symbol
+        
+MAGNET_SPEED_PERCENT = 
+DynamicGameRuleManager.
+registerInteger("ig_mag
+net_speed", 
+MAGNET_CATEGORY, 80);
+                       
+        ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:30: 
+error: cannot find 
+symbol
+        MAGNET_ACCELERA
+TION_PERCENT = DynamicG
+ameRuleManager.register
+Integer("ig_magnet_acce
+leration", 
+MAGNET_CATEGORY,
+                       
+               ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:32: 
+error: cannot find 
+symbol
+        MAGNET_INSTANT 
+= DynamicGameRuleManage
+r.registerBoolean("ig_m
+agnet_instant", 
+MAGNET_CATEGORY, 
+false);
+                       
+  ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:36: 
+error: cannot find 
+symbol
+        return DynamicG
+ameRuleManager.getInt(l
+evel, rule);
+               ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:40: 
+error: cannot find 
+symbol
+        return DynamicG
+ameRuleManager.getBoole
+an(level, rule);
+               ^
+  symbol:   variable 
+DynamicGameRuleManager
+  location: class 
+ModGameRules
+12 errors
+
+[Incubating] Problems report is available at: file:///E:/Minecraft%20Project/Instant%20Gratification%20Collection/magnet/build/reports/problems/problems-report.html
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':compileJava'.
+> Compilation failed; 
+see the compiler 
+output below.
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:11: 
+error: cannot find 
+symbol
+      public static 
+final GameRuleCategory 
+MAGNET_CATEGORY = 
+DynamicGameRuleManager
+                       
+                       
+               ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:24: 
+error: cannot find 
+symbol
+          MAGNET_RANGE 
+= DynamicGameRuleManage
+r.registerInteger("ig_m
+agnet_range", 
+MAGNET_CATEGORY, 12);
+                       
+  ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:25: 
+error: cannot find 
+symbol
+          
+MAGNET_NOCLIP = Dynamic
+GameRuleManager.registe
+rBoolean("ig_magnet_noc
+lip", MAGNET_CATEGORY, 
+true);
+                       
+   ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:26: 
+error: cannot find 
+symbol
+          
+MAGNET_AFFECTS_XP = Dyn
+amicGameRuleManager.reg
+isterBoolean("ig_magnet
+_affects_xp", 
+MAGNET_CATEGORY, true);
+                       
+       ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:27: 
+error: cannot find 
+symbol
+          
+MAGNET_PARTICLES = Dyna
+micGameRuleManager.regi
+sterBoolean("ig_magnet_
+particles", 
+MAGNET_CATEGORY, true);
+                       
+      ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:28: 
+error: cannot find 
+symbol
+          
+MAGNET_PARTICLE_COUNT 
+= DynamicGameRuleManage
+r.registerInteger("ig_m
+agnet_particle_count", 
+MAGNET_CATEGORY, 1);
+                       
+           ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:29: 
+error: cannot find 
+symbol
+          
+MAGNET_SPEED_PERCENT = 
+DynamicGameRuleManager.
+registerInteger("ig_mag
+net_speed", 
+MAGNET_CATEGORY, 80);
+                       
+          ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:30: 
+error: cannot find 
+symbol
+          MAGNET_ACCELE
+RATION_PERCENT = Dynami
+cGameRuleManager.regist
+erInteger("ig_magnet_ac
+celeration", 
+MAGNET_CATEGORY,
+                       
+                 ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:32: 
+error: cannot find 
+symbol
+          
+MAGNET_INSTANT = Dynami
+cGameRuleManager.regist
+erBoolean("ig_magnet_in
+stant", 
+MAGNET_CATEGORY, 
+false);
+                       
+    ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:36: 
+error: cannot find 
+symbol
+          return Dynami
+cGameRuleManager.getInt
+(level, rule);
+                 ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:40: 
+error: cannot find 
+symbol
+          return Dynami
+cGameRuleManager.getBoo
+lean(level, rule);
+                 ^
+    symbol:   variable 
+DynamicGameRuleManager
+    location: class 
+ModGameRules
+  E:\Minecraft 
+Project\Instant 
+Gratification Collectio
+n\magnet\src\main\java\
+net\instantgratificatio
+n\magnet\registry\ModGa
+meRules.java:3: error: 
+package net.dasik.socia
+l.api.gamerule does 
+not exist
+  import net.dasik.soci
+al.api.gamerule.Dynamic
+GameRuleManager;
+                       
+               ^
+  12 errors
+
+* Try:
+> Check your code and 
+dependencies to fix 
+the compilation 
+error(s)
+> Run with --scan to 
+get full insights from 
+a Build Scan (powered 
+by Develocity).
+1 actionable task: 1 executed
+
+BUILD FAILED in 1s

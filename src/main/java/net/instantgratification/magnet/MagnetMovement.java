@@ -31,7 +31,13 @@ public class MagnetMovement {
                                                                                                             // access
         boolean noClip = ModGameRules.getBoolean(level, ModGameRules.MAGNET_NOCLIP); // Changed game rule access
 
-        // 3. Vector Calculation
+        // 3. Instant Teleport Check
+        if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_INSTANT)) {
+            entity.teleportTo(player.getX(), player.getY(), player.getZ());
+            return;
+        }
+
+        // 4. Vector Calculation
         // Target: Player's eye position (to avoid feet drag)
         Vec3 target = player.getEyePosition();
         Vec3 pos = entity.position();
@@ -48,7 +54,7 @@ public class MagnetMovement {
 
         Vec3 direction = vecToTarget.normalize();
 
-        // 4. Velocity Application
+        // 5. Velocity Application
         // Interpolate current velocity towards target velocity
         Vec3 currentVel = entity.getDeltaMovement();
         Vec3 targetVel = direction.scale(speed);
@@ -58,7 +64,7 @@ public class MagnetMovement {
 
         entity.setDeltaMovement(newVel);
 
-        // 5. NoClip
+        // 6. NoClip
         if (noClip) {
             entity.noPhysics = true; // Use vanilla field for noclip-like behavior on items?
             // Or usually we just let them move. 'noClip' field exists on Entity.
@@ -77,9 +83,10 @@ public class MagnetMovement {
             // might reset it or gravity applies.
             // For now, setting noPhysics = true is safe for this tick.
             entity.noPhysics = true;
+            entity.noPhysics = true;
         }
 
-        // 6. Visuals
+        // 7. Visuals
         if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_PARTICLES)) {
             int count = ModGameRules.getInt(level, ModGameRules.MAGNET_PARTICLE_COUNT);
             if (count > 0) {

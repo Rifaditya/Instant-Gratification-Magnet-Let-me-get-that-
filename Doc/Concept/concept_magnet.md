@@ -1,4 +1,4 @@
-# Instant Gratification: Magnet, Let me get that!
+# Instant Gratification: Magnet, Let me get that
 
 ## Philosophy Fit
 
@@ -66,3 +66,7 @@ Unlike vanilla magnets (tech mods) which often require energy or items, this is 
 - [ ] **Visuals**: Particle spawning contingent on `ig_magnet_particles` and loop `ig_magnet_particle_count`.
 - [ ] **Config**: Register GameRules with Category (ensure UI visibility).
 - [ ] **Verification**: Test with items behind walls, items in water, items in lava.
+
+## To Do
+
+- [ ] **Instant Teleport**: Option to instantly get item into player inventory or under their feet if inventory full.
