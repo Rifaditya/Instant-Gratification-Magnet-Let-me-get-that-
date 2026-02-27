@@ -1,5 +1,12 @@
 # Changelog History
 
+## [1.0.0+build.3] - 2026-02-27
+
+### Added
+
+- **Instant Teleport Feature**: `ig_magnet_instant` gamerule now utilizes AABB area expansion on the player to natively capture items with 0 travel time, preserving vanilla pickup logic without duplicating inventory insertion logic.
+- **Documentation**: Added comprehensive `doc.md` and synced translation keys for UI.
+
 ## [1.0.0+build.2] - 2026-02-21
 
 ### Changed

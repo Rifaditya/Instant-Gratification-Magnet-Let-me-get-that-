@@ -1,4 +1,12 @@
 {
     "gamerule.category.magnet.magnet_category": "Magnet, Let me get that!",
-    "gamerule.category.magnet": "Magnet, Let me get that!"
+    "gamerule.category.magnet": "Magnet, Let me get that!",
+    "gamerule.ig_magnet_range": "Magnet Range",
+    "gamerule.ig_magnet_noclip": "Items Ignore Blocks",
+    "gamerule.ig_magnet_affects_xp": "Magnet Affects XP Orbs",
+    "gamerule.ig_magnet_particles": "Show Magnet Particles",
+    "gamerule.ig_magnet_particle_count": "Magnet Particle Count",
+    "gamerule.ig_magnet_speed": "Magnet Speed (%)",
+    "gamerule.ig_magnet_acceleration": "Magnet Acceleration (%)",
+    "gamerule.ig_magnet_instant": "Instant Teleport To Inventory"
 }

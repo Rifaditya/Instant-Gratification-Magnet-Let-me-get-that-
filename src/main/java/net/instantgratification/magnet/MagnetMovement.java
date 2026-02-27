@@ -31,9 +31,10 @@ public class MagnetMovement {
                                                                                                             // access
         boolean noClip = ModGameRules.getBoolean(level, ModGameRules.MAGNET_NOCLIP); // Changed game rule access
 
-        // 3. Instant Teleport Check
+        // 3. Instant Pickup Override
         if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_INSTANT)) {
-            entity.teleportTo(player.getX(), player.getY(), player.getZ());
+            // The PlayerMixin will natively handle expanding the AABB pickup radius.
+            // We just need to skip the visual physics/velocity here so we don't apply motion twice.
             return;
         }
 

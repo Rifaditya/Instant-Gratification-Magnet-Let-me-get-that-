@@ -59,14 +59,14 @@ Unlike vanilla magnets (tech mods) which often require energy or items, this is 
 
 ## Implementation Checklist
 
-- [ ] **Core Logic**: Player Tick Handler scanning for `ItemEntity` and `ExperienceOrb`.
-- [ ] **Movement**: Velocity interpolation logic using `ig_magnet_speed` and `ig_magnet_acceleration`.
-- [ ] **Clipping**: `noClip` toggle logic contingent on `ig_magnet_noclip`.
-- [ ] **XP Sync**: Conditional check for `ig_magnet_affects_xp`.
-- [ ] **Visuals**: Particle spawning contingent on `ig_magnet_particles` and loop `ig_magnet_particle_count`.
-- [ ] **Config**: Register GameRules with Category (ensure UI visibility).
-- [ ] **Verification**: Test with items behind walls, items in water, items in lava.
+- [x] **Core Logic**: Player Tick Handler scanning for `ItemEntity` and `ExperienceOrb`.
+- [x] **Movement**: Velocity interpolation logic using `ig_magnet_speed` and `ig_magnet_acceleration`.
+- [x] **Clipping**: `noClip` toggle logic contingent on `ig_magnet_noclip`.
+- [x] **XP Sync**: Conditional check for `ig_magnet_affects_xp`.
+- [x] **Visuals**: Particle spawning contingent on `ig_magnet_particles` and loop `ig_magnet_particle_count`.
+- [x] **Config**: Register GameRules with Category (ensure UI visibility).
+- [x] **Verification**: Test with items behind walls, items in water, items in lava.
 
 ## To Do
 
-- [ ] **Instant Teleport**: Option to instantly get item into player inventory or under their feet if inventory full.
+- [x] **Instant Teleport**: Option to instantly get item into player inventory via AABB bounding box expansion.

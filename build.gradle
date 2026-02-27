@@ -37,7 +37,7 @@ processResources {
 }
 
 loom {
-    // No mixins
+    accessWidenerPath = file("src/main/resources/magnet.accesswidener")
 }
 
 tasks.withType(JavaCompile).configureEach {

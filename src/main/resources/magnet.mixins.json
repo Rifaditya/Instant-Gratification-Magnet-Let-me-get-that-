@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "package": "net.instantgratification.magnet.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "PlayerMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
