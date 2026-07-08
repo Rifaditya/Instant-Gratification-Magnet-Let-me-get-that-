@@ -4,22 +4,23 @@ Welcome to the **IG: Magnet, Let me get that!** development documentation.
 
 ## Sections
 
-- **[Getting Started](Getting-Started/index.md)**: Requirements, Building, and Project Structure.
-- **[Architecture](Architecture/Architecture.md)**: System flow, module responsibilities, design decisions.
-- **[GameRules Reference](gamerules_reference.md)**: Complete reference for all GameRules.
-- **[Changelogs](Changelogs/History.md)**: Full release history.
+- **[Getting Started](Develop/Getting-Started/index.md)**: Requirements, Building, and Project Structure.
+- **[Architecture](doc.md)**: Technical overview of the magnet logic (previously Architecture.md).
+- **[GameRules Reference](Develop/gamerules_reference.md)**: Complete reference for all GameRules.
+- **[Changelogs](../CHANGELOG.md)**: Full release history.
 
 ## Architecture
 
 | Component | Purpose |
 | :--- | :--- |
-| [ModGameRules](file:///e:/Minecraft%20Project/Instant%20Gratification%20Collection/magnet/src/main/java/net/instantgratification/magnet/registry/ModGameRules.java) | Registers GameRules under custom category |
-| [MagnetManager](file:///e:/Minecraft%20Project/Instant%20Gratification%20Collection/magnet/src/main/java/net/instantgratification/magnet/MagnetManager.java) | Stateless logic: Scanning players for items/XP in range |
-| [MagnetMovement](file:///e:/Minecraft%20Project/Instant%20Gratification%20Collection/magnet/src/main/java/net/instantgratification/magnet/MagnetMovement.java) | Physics: Velocity injection, No-clip logic, Particle effects |
-| [MixinPlayer](file:///e:/Minecraft%20Project/Instant%20Gratification%20Collection/magnet/src/main/java/net/instantgratification/magnet/mixin/MixinPlayer.java) | Intercepts Player Tick to trigger magnet logic |
+| [ModGameRules](../src/main/java/net/instantgratification/magnet/registry/ModGameRules.java) | Registers GameRules under custom category |
+| [MagnetManager](../src/main/java/net/instantgratification/magnet/MagnetManager.java) | Stateless logic: Scanning players for items/XP in range |
+| [MagnetMovement](../src/main/java/net/instantgratification/magnet/MagnetMovement.java) | Physics: Velocity injection, No-clip logic, Particle effects |
+| [IMagnetEntity](../src/main/java/net/instantgratification/magnet/IMagnetEntity.java) | Interface for magnetization state tracking |
 
 ## Key Design Decisions
 
-1. **Phase Shifting (NoClip)**: Items temporarily ignore physics (`noPhysics = true`) to pass through walls, preventing them from getting stuck or requiring line-of-sight.
-2. **Velocity Injection**: Uses linear interpolation (lerp) to smooth acceleration, creating a "snap" effect where items quickly reach terminal velocity without instantaneous snapping.
-3. **Intrinsic Logic**: No item or energy required. The ability is an extension of the player.
+1. **Player-Centric LOS**: Magnetism can be configured to respect Line of Sight, preventing "psychic" pulling of items hidden behind walls unless previously spotted.
+2. **Phase Shifting (NoClip)**: Items temporarily ignore physics (`noPhysics = true`) once pulled, preventing them from getting stuck in blocks.
+3. **Magnetization Lock**: Items carry a state flag (`magnetized`) when seen, allowing them to keep moving even if they briefly disappear behind cover.
+4. **Velocity Injection**: Uses lerp for smooth acceleration, creating a "snap" effect without jarring teleportation.

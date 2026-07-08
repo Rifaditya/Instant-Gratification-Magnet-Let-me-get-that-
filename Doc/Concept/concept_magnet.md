@@ -32,17 +32,23 @@ Unlike vanilla magnets (tech mods) which often require energy or items, this is 
 
 ## Configuration (GameRules)
 
-- `igMagnetRange` (int, default 12, min 0, max 64): Radius of the vacuum.
+- `ig_magnet_range` (int, default 12, min 0, max 64): **Magnet Vacuum Range** - Radius in blocks to search and pull items.
   - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
-- `igMagnetSpeed` (double, default 0.8, min 0.1, max 5.0): Terminal velocity multiplier.
-- `igMagnetAcceleration` (double, default 0.1, min 0.01, max 1.0): How fast items reach top speed (1.0 = instant).
-- `igMagnetNoClip` (boolean, default true): Whether items clip through blocks (Phase Shifting).
+- `ig_magnet_speed` (double, default 0.8, min 0.1, max 5.0): **Terminal Velocity** - Maximum speed in % items travel when pulled.
+- `ig_magnet_acceleration` (double, default 0.1, min 0.01, max 1.0): **Snap Acceleration** - How quickly items reach maximum speed in %.
+- `ig_magnet_noclip` (boolean, default true): **Phase Shifting** - Allows items to clip through solid blocks harmlessly.
   - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
-- `igMagnetAffectsXP` (boolean, default true): Whether XP Orbs are magnetized.
+- `ig_magnet_affects_xp` (boolean, default true): **Magnetize Experience** - Applies vacuum effect to XP orbs as well as items.
   - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
-- `igMagnetParticles` (boolean, default true): Toggle visual trail effects.
+- `ig_magnet_particles` (boolean, default true): **Show Visual Trails** - Displays cosmetic particle effects tracking magnetized items.
   - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
-- `igMagnetParticleCount` (int, default 1, min 0, max 20): Number of particles per tick per item.
+- `ig_magnet_particle_count` (int, default 1, min 0, max 20): **Visual Trail Density** - Number of particles to spawn per item per tick.
+  - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
+- `ig_magnet_blocked_by_transparent` (boolean, default false): **Blocked by Transparent Blocks** - If enabled, the magnet will fail to pull items if the line of sight is obstructed by non-full blocks like Glass, Fences, Slabs, or Stairs.
+  - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
+- `ig_magnet_blocked_by_flora` (boolean, default false): **Blocked by Flora and Vegetation** - If enabled, the magnet will fail to pull items if the line of sight is obstructed by plant life such as Tall Grass, Leaves, Flowers, or Bushes.
+  - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
+- `ig_magnet_blocked_by_block_entities` (boolean, default false): **Blocked by Interactive Furniture** - If enabled, the magnet will fail to pull items if the line of sight is obstructed by block entities like Chests, Beds, Doors, Signs, or Shulker Boxes.
   - **UI**: Must appear in the **"Misc" category** of the Vanilla `Edit Game Rules` screen.
 
 ## Assets Needed
@@ -70,3 +76,7 @@ Unlike vanilla magnets (tech mods) which often require energy or items, this is 
 ## To Do
 
 - [x] **Instant Teleport**: Option to instantly get item into player inventory via AABB bounding box expansion.
+
+
+Todo;
+add option to set the amount of item that have particles(becuase if every xp orb have particle the lag is unbearable)
