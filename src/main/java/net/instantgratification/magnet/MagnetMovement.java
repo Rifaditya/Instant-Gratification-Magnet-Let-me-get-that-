@@ -1,3 +1,4 @@
+// Verified against: Entity.java (26.2+)
 package net.instantgratification.magnet;
 
 import net.instantgratification.magnet.registry.ModGameRules;
@@ -11,24 +12,73 @@ import net.minecraft.world.phys.Vec3;
 
 public class MagnetMovement {
 
-    public static void pull(Entity entity, Player player) {
+    public static void pull(Entity entity, Player player, boolean shouldSpawnParticles) {
         if (entity.level().isClientSide())
             return;
         Level level = entity.level();
 
         // 1. Config Checks
-        boolean affectXP = ModGameRules.getBoolean(level, ModGameRules.MAGNET_AFFECTS_XP); // Changed game rule access
+        boolean affectXP = ModGameRules.getBoolean(level, ModGameRules.MAGNET_AFFECTS_XP);
         if (entity instanceof ExperienceOrb && !affectXP)
             return;
 
+        // 1.5. Line of Sight (LOS) Check
+        if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_LOS_ONLY)) {
+            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+                // Primary Pass: Solid Walls (Vanilla raycast)
+                Vec3 start = serverPlayer.getEyePosition();
+                Vec3 end = new Vec3(entity.getX(), entity.getY() + entity.getBbHeight() / 2.0, entity.getZ());
+                net.minecraft.world.level.ClipContext clipContext = new net.minecraft.world.level.ClipContext(
+                    start, end, net.minecraft.world.level.ClipContext.Block.VISUAL, net.minecraft.world.level.ClipContext.Fluid.NONE, serverPlayer
+                );
+                net.minecraft.world.phys.BlockHitResult hitResult = serverPlayer.level().clip(clipContext);
+                boolean canSee = hitResult.getType() == net.minecraft.world.phys.HitResult.Type.MISS;
+                
+                // Secondary Pass: Granular Configuration (Glass, Flora, Entities)
+                if (canSee) {
+                    boolean blockTransparent = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_TRANSPARENT);
+                    boolean blockFlora = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_FLORA);
+                    boolean blockEntities = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_BLOCK_ENTITIES);
+                    
+                    if (blockTransparent || blockFlora || blockEntities) {
+                        canSee = SecondaryVisionCheck.canSee(player, entity, blockTransparent, blockFlora, blockEntities);
+                    }
+                }
+
+                if (!canSee) {
+                    if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_KEEP_MOVING_IF_UNSEEN)) {
+                        // If it's unseen, it MUST have been magnetized before to continue.
+                        // Using the injected Mixin flag, not scoreboard tags (no such API in Snapshot 26.1).
+                        if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
+                            if (entity.tickCount % 40 == 0) {
+                                MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: LOS check failed (unmagnetized).", serverPlayer.getScoreboardName(), serverPlayer.getUUID(), entity.getId());
+                            }
+                            return;
+                        }
+                    } else {
+                        if (entity.tickCount % 40 == 0) {
+                            MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: Strict LOS check failed.", serverPlayer.getScoreboardName(), serverPlayer.getUUID(), entity.getId());
+                        }
+                        return; // Strict LOS requirement
+                    }
+                } else {
+                    // It is seen! Flag it so it can keep moving if it loses LOS later.
+                    if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
+                        MagnetDebugLogger.log("MagnetMovement: Entity %d is now magnetized by %s (%s).", entity.getId(), serverPlayer.getScoreboardName(), serverPlayer.getUUID());
+                    }
+                    ((IMagnetEntity) entity).ig_magnet$setMagnetized();
+                }
+            }
+        } else {
+            // Magnet is in normal mode, flag it anyway in case settings change mid-flight
+            ((IMagnetEntity) entity).ig_magnet$setMagnetized();
+        }
+
         // 2. Physics Config
         // Convert integer percentage to double (80 -> 0.8)
-        double speed = ModGameRules.getInt(level, ModGameRules.MAGNET_SPEED_PERCENT) / 100.0; // Changed game rule
-                                                                                              // access
-        double acceleration = ModGameRules.getInt(level, ModGameRules.MAGNET_ACCELERATION_PERCENT) / 100.0; // Changed
-                                                                                                            // game rule
-                                                                                                            // access
-        boolean noClip = ModGameRules.getBoolean(level, ModGameRules.MAGNET_NOCLIP); // Changed game rule access
+        double speed = ModGameRules.getInt(level, ModGameRules.MAGNET_SPEED_PERCENT) / 100.0;
+        double acceleration = ModGameRules.getInt(level, ModGameRules.MAGNET_ACCELERATION_PERCENT) / 100.0;
+        boolean noClip = ModGameRules.getBoolean(level, ModGameRules.MAGNET_NOCLIP);
 
         // 3. Instant Pickup Override
         if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_INSTANT)) {
@@ -46,11 +96,7 @@ public class MagnetMovement {
 
         // Safety check to prevent orbiting functionality or super-speed glitching at
         // close range
-        if (distSqr < 0.25) { // Within 0.5 blocks
-            // Let collisions handle pickup, just slow down or stop
-            // entity.setDeltaMovement(vecToTarget); // Snap to player?
-            return;
-        }
+        // Removed close-range stall check to allow continuous pull until pickup
 
         Vec3 direction = vecToTarget.normalize();
 
@@ -63,36 +109,36 @@ public class MagnetMovement {
         Vec3 newVel = currentVel.lerp(targetVel, acceleration);
 
         entity.setDeltaMovement(newVel);
+        entity.hurtMarked = true;
+        if (entity.onGround()) {
+            entity.setOnGround(false);
+            entity.setPos(entity.position().add(0, 0.05, 0));
+        }
 
         // 6. NoClip
         if (noClip) {
-            entity.noPhysics = true; // Use vanilla field for noclip-like behavior on items?
-            // Or usually we just let them move. 'noClip' field exists on Entity.
-            // But we must be careful not to make them fall through floor forever if they
-            // stop being magnetized.
-            // Manager ensures this is called every tick they are in range.
-            // If we want true noclip through walls, we might need to set the boolean.
-            // Ref: Entity.noPhysics or Entity.invulnerable?
-            // "noClip" is a protected field or accessor in some mappings?
-            // In 26.1, it might be standard "noPhysics".
-            // Better approach: Items that are moving towards player fast usually clip small
-            // stuff,
-            // but for walls we definitely need noPhysics=true.
-            // We should reset it if not pulled, but that requires tracking.
-            // However, typical magnets just set it true while pulling. The entity logic
-            // might reset it or gravity applies.
-            // For now, setting noPhysics = true is safe for this tick.
-            entity.noPhysics = true;
-            entity.noPhysics = true;
+            // Only apply noPhysics if actually moving fast toward the player
+            // to prevent falling through the floor indefinitely when stopped.
+            if (distSqr > 1.0) {
+                 ((IMagnetEntity) entity).ig_magnet$setMagnetNoClip();
+            }
         }
 
         // 7. Visuals
-        if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_PARTICLES)) {
+        if (shouldSpawnParticles && ModGameRules.getBoolean(level, ModGameRules.MAGNET_PARTICLES) && (entity.tickCount + entity.getId()) % 4 == 0) {
             int count = ModGameRules.getInt(level, ModGameRules.MAGNET_PARTICLE_COUNT);
             if (count > 0) {
-                ((ServerLevel) level).sendParticles(ParticleTypes.ELECTRIC_SPARK,
-                        entity.getX(), entity.getY() + entity.getBbHeight() / 2.0, entity.getZ(),
-                        count, 0.1, 0.1, 0.1, 0.05);
+                if (level instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK,
+                            entity.getX(), entity.getY() + entity.getBbHeight() / 2.0, entity.getZ(),
+                            count, 0.1, 0.1, 0.1, 0.05);
+                } else {
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.ELECTRIC_SPARK,
+                                entity.getRandomX(0.2), entity.getRandomY() + entity.getBbHeight() / 2.0, entity.getRandomZ(0.2),
+                                0.0, 0.05, 0.0);
+                    }
+                }
             }
         }
     }

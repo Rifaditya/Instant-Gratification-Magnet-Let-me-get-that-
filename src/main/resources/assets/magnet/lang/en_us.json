@@ -1,12 +1,92 @@
 {
     "gamerule.category.magnet.magnet_category": "Magnet, Let me get that!",
     "gamerule.category.magnet": "Magnet, Let me get that!",
-    "gamerule.ig_magnet_range": "Magnet Range",
-    "gamerule.ig_magnet_noclip": "Items Ignore Blocks",
-    "gamerule.ig_magnet_affects_xp": "Magnet Affects XP Orbs",
-    "gamerule.ig_magnet_particles": "Show Magnet Particles",
-    "gamerule.ig_magnet_particle_count": "Magnet Particle Count",
-    "gamerule.ig_magnet_speed": "Magnet Speed (%)",
-    "gamerule.ig_magnet_acceleration": "Magnet Acceleration (%)",
-    "gamerule.ig_magnet_instant": "Instant Teleport To Inventory"
+    
+    "gamerule.ig.magnet_enabled": "Magnet Enabled",
+    "gamerule.ig.magnet_enabled.description": "Enables or disables the Item Magnet. Default: true.",
+    
+    "gamerule.ig.magnet_range": "Magnet Range",
+    "gamerule.ig.magnet_range.description": "The block radius the magnet will attract items from. Range: 1 to 64. Default: 12.",
+    
+    "gamerule.ig.magnet_noclip": "Magnet Noclip",
+    "gamerule.ig.magnet_noclip.description": "Allows attracted items to pass through solid blocks. Default: true.",
+    
+    "gamerule.ig.magnet_affects_xp": "Attract XP Orbs",
+    "gamerule.ig.magnet_affects_xp.description": "Whether the magnet should also attract Experience Orbs. Default: true.",
+    
+    "gamerule.ig.magnet_particles": "Magnet Particles",
+    "gamerule.ig.magnet_particles.description": "Spawns particles on items while they are being attracted. Default: true.",
+    
+    "gamerule.ig.magnet_particle_count": "Particle Count",
+    "gamerule.ig.magnet_particle_count.description": "The number of particles to spawn per item per tick. Range: 0 to 100. Default: 1.",
+    
+    "gamerule.ig.magnet_max_particle_sources": "Max Particle Sources",
+    "gamerule.ig.magnet_max_particle_sources.description": "Maximum number of entities allowed to spawn particles simultaneously per tick to prevent lag. Range: 0 to 100. Default: 5.",
+    
+    "gamerule.ig.magnet_speed": "Item Speed",
+    "gamerule.ig.magnet_speed.description": "The speed at which items fly towards the player. Range: 1 to 1000. Default: 80%.",
+    
+    "gamerule.ig.magnet_acceleration": "Item Acceleration",
+    "gamerule.ig.magnet_acceleration.description": "How quickly items reach maximum speed. Range: 1 to 1000. Default: 10%.",
+    
+    "gamerule.ig.magnet_instant": "Instant Pickup",
+    "gamerule.ig.magnet_instant.description": "If true, items immediately teleport to the player instead of flying. Default: false.",
+    
+    "gamerule.ig.magnet_los_only": "Line of Sight Only",
+    "gamerule.ig.magnet_los_only.description": "Requires line of sight to attract items. Default: true.",
+    
+    "gamerule.ig.magnet_keep_moving_if_unseen": "Keep Moving if Unseen",
+    "gamerule.ig.magnet_keep_moving_if_unseen.description": "Items continue their momentum if line of sight is broken. Default: true.",
+    
+    "gamerule.ig.magnet_blocked_by_transparent": "Blocked by Transparent",
+    "gamerule.ig.magnet_blocked_by_transparent.description": "If true, glass and other transparent blocks block line of sight. Default: false.",
+    
+    "gamerule.ig.magnet_blocked_by_flora": "Blocked by Flora",
+    "gamerule.ig.magnet_blocked_by_flora.description": "If true, grass and flowers block line of sight. Default: false.",
+    
+    "gamerule.ig.magnet_blocked_by_block_entities": "Blocked by Block Entities",
+    "gamerule.ig.magnet_blocked_by_block_entities.description": "If true, chests and other block entities block line of sight. Default: false.",
+    
+    "config.ig_magnet.title": "Magnet, Let me get that! Configuration",
+    "config.ig_magnet.warning": "WARNING: Changes made here only affect the baseline defaults for NEW worlds. To configure your active/existing world, use the in-game /gamerule screen or command instead.",
+    "config.ig_magnet.category.general": "General Settings",
+    "config.ig_magnet.category.speeds": "Speeds & Pull Heuristics",
+    "config.ig_magnet.category.los": "Line of Sight (LOS)",
+    "config.ig_magnet.category.visuals": "Visuals & Performance",
+    
+    "config.ig_magnet.enabled": "Magnet Enabled",
+    "config.ig_magnet.enabled.description": "Enables or disables the Item Magnet. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.range": "Magnet Range",
+    "config.ig_magnet.range.description": "The block radius the magnet will attract items from. Range: 1 to 64. Default: 12.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.instant": "Instant Pickup",
+    "config.ig_magnet.instant.description": "If true, items immediately teleport to the player instead of flying. Default: false.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.noClip": "Magnet Noclip",
+    "config.ig_magnet.noClip.description": "Allows attracted items to pass through solid blocks. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.speed": "Item Speed",
+    "config.ig_magnet.speed.description": "The speed at which items fly towards the player. Range: 1 to 1000. Default: 80%.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.acceleration": "Item Acceleration",
+    "config.ig_magnet.acceleration.description": "How quickly items reach maximum speed. Range: 1 to 1000. Default: 10%.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.losOnly": "Line of Sight Only",
+    "config.ig_magnet.losOnly.description": "Requires line of sight to attract items. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.keepMovingIfUnseen": "Keep Moving if Unseen",
+    "config.ig_magnet.keepMovingIfUnseen.description": "Items continue their momentum if line of sight is broken. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.blockedByTransparent": "Blocked by Transparent",
+    "config.ig_magnet.blockedByTransparent.description": "If true, glass and other transparent blocks block line of sight. Default: false.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.blockedByFlora": "Blocked by Flora",
+    "config.ig_magnet.blockedByFlora.description": "If true, grass and flowers block line of sight. Default: false.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.blockedByBlockEntities": "Blocked by Block Entities",
+    "config.ig_magnet.blockedByBlockEntities.description": "If true, chests and other block entities block line of sight. Default: false.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.affectsXp": "Attract XP Orbs",
+    "config.ig_magnet.affectsXp.description": "Whether the magnet should also attract Experience Orbs. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.particles": "Magnet Particles",
+    "config.ig_magnet.particles.description": "Spawns particles on items while they are being attracted. Default: true.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.particleCount": "Particle Count",
+    "config.ig_magnet.particleCount.description": "The number of particles to spawn per item per tick. Range: 0 to 100. Default: 1.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    "config.ig_magnet.maxParticleSources": "Max Particle Sources",
+    "config.ig_magnet.maxParticleSources.description": "Maximum number of entities allowed to spawn particles simultaneously per tick to prevent lag. Range: 0 to 100. Default: 5.\n\n§6Notice:§r Global configuration settings only define default values for newly generated worlds. For existing worlds, change settings in-game via /gamerule or the GameRules edit GUI screen.",
+    
+    "key.category.ig_magnet.magnet": "Magnet, Let me get that!",
+    "key.ig_magnet.toggle": "Toggle Item Magnet",
+    "chat.ig_magnet.enabled": "Item Magnet: Enabled",
+    "chat.ig_magnet.disabled": "Item Magnet: Disabled"
 }
