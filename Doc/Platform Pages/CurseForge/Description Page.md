@@ -8,14 +8,6 @@
 
 # 🧲 Magnet, Let me get that!
 
-### 🎮 Version Compatibility & Parity
-
-This mod is active and fully supported across both major version streams:
-* **Minecraft 26.2+**: Current public release — **`v1.3.4`**
-* **Minecraft 26.1.2**: **Discontinued** — **`v1.0.10`**
-
-Both versions are designed to run fully server-side with vanilla client compatibility, though newer performance fixes and thread-safe packets are standardized on the 26.2+ release.
-
 <blockquote><strong>"If you can see it, you should have it."</strong></blockquote>
 
 **Magnet, Let me get that!** is an intrinsic extension of your will. It creates a constant, powerful vacuum that pulls items and XP orbs directly to you. No items to hold, no energy to charge — just pure convenience.
