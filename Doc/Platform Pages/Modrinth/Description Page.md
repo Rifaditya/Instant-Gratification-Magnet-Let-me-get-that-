@@ -77,6 +77,9 @@ No messy config files. The mod uses the **Native Minecraft Game Rules** system. 
 /gamerule ig:magnet_instant true   → Warp items directly to inventory
 /gamerule ig:magnet_los_only true  → Require line-of-sight
 /gamerule ig:magnet_affects_xp false → Disable XP magnetism
+/magnet toggle                     → Toggle personal magnet field (or press '\')
+/magnet debug                      → View player UUID, GameRules, and LOS check details
+/magnet debug log                  → Toggle persistent log files in logs/ig_magnet_debug.log
 ```
 
 ---
