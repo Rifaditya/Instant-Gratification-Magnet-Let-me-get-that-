@@ -38,8 +38,14 @@ public class MagnetMod implements ModInitializer {
             ServerPlayNetworking.send(handler.player, new MagnetTogglePayload(isEnabled));
         });
 
+        // Copy player toggle state across death, respawn, and dimension travel
+        net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+            boolean isEnabled = ((IMagnetPlayer) oldPlayer).ig_magnet$isMagnetEnabled();
+            ((IMagnetPlayer) newPlayer).ig_magnet$setMagnetEnabled(isEnabled);
+            MagnetDebugLogger.log("MagnetMod: COPY_FROM from %s to %s (alive=%b) value=%b", oldPlayer.getScoreboardName(), newPlayer.getScoreboardName(), alive, isEnabled);
+        });
+
         // Sync magnet state to client after respawn (new player entity needs fresh sync)
-        // UUID-based state map in PlayerMixin makes COPY_FROM unnecessary
         net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
             boolean isEnabled = ((IMagnetPlayer) newPlayer).ig_magnet$isMagnetEnabled();
             MagnetDebugLogger.log("MagnetMod: AFTER_RESPAWN for %s (%s) enabled=%b", newPlayer.getScoreboardName(), newPlayer.getUUID(), isEnabled);

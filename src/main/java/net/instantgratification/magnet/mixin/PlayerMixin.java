@@ -26,24 +26,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PlayerMixin implements IMagnetPlayer {
 
     @Unique
-    private static final Map<UUID, Boolean> ig_magnet$states = new ConcurrentHashMap<>();
+    private boolean ig_magnet$enabled = true;
     @Unique
     private int ig_magnet$tickCount = 0;
 
     @Override
     public boolean ig_magnet$isMagnetEnabled() {
         Player player = (Player) (Object) this;
-        boolean result = ig_magnet$states.getOrDefault(player.getUUID(), true);
         if (player.tickCount % 200 == 0) {
-            net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: isMagnetEnabled for %s (%s) is %b", player.getScoreboardName(), player.getUUID(), result);
+            net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: isMagnetEnabled for %s (%s) is %b", player.getScoreboardName(), player.getUUID(), this.ig_magnet$enabled);
         }
-        return result;
+        return this.ig_magnet$enabled;
     }
 
     @Override
     public void ig_magnet$setMagnetEnabled(boolean enabled) {
         Player player = (Player) (Object) this;
-        ig_magnet$states.put(player.getUUID(), enabled);
+        this.ig_magnet$enabled = enabled;
         net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: setMagnetEnabled for %s (%s) to %b", player.getScoreboardName(), player.getUUID(), enabled);
         this.ig_magnet$syncToClient();
     }
@@ -51,11 +50,10 @@ public class PlayerMixin implements IMagnetPlayer {
     @Override
     public boolean ig_magnet$toggleMagnet() {
         Player player = (Player) (Object) this;
-        boolean newState = !ig_magnet$isMagnetEnabled();
-        ig_magnet$states.put(player.getUUID(), newState);
-        net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: toggleMagnet for %s (%s) to %b", player.getScoreboardName(), player.getUUID(), newState);
+        this.ig_magnet$enabled = !this.ig_magnet$enabled;
+        net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: toggleMagnet for %s (%s) to %b", player.getScoreboardName(), player.getUUID(), this.ig_magnet$enabled);
         this.ig_magnet$syncToClient();
-        return newState;
+        return this.ig_magnet$enabled;
     }
 
     @Unique
@@ -73,16 +71,15 @@ public class PlayerMixin implements IMagnetPlayer {
     // Verified against: Player.java (26.2+) - addAdditionalSaveData(ValueOutput)
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void ig_magnet$addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
-        output.putBoolean("ig_magnet_enabled", this.ig_magnet$isMagnetEnabled());
+        output.putBoolean("ig_magnet_enabled", this.ig_magnet$enabled);
     }
 
     // Verified against: Player.java (26.2+) - readAdditionalSaveData(ValueInput)
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void ig_magnet$readAdditionalSaveData(ValueInput input, CallbackInfo ci) {
         Player player = (Player) (Object) this;
-        boolean enabled = input.getBooleanOr("ig_magnet_enabled", true);
-        ig_magnet$states.put(player.getUUID(), enabled);
-        net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: readAdditionalSaveData for %s (%s) value=%b", player.getScoreboardName(), player.getUUID(), enabled);
+        this.ig_magnet$enabled = input.getBooleanOr("ig_magnet_enabled", true);
+        net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: readAdditionalSaveData for %s (%s) value=%b", player.getScoreboardName(), player.getUUID(), this.ig_magnet$enabled);
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
@@ -103,11 +100,11 @@ public class PlayerMixin implements IMagnetPlayer {
             ordinal = 0
     )
     private AABB ig_magnet$expandPickupArea(AABB pickupArea) {
-        if (!this.ig_magnet$isMagnetEnabled()) {
+        Player player = (Player) (Object) this;
+        if (!this.ig_magnet$isMagnetEnabled() || player.isDeadOrDying() || player.isSpectator()) {
             return pickupArea;
         }
 
-        Player player = (Player) (Object) this;
         Level level = player.level();
         
         if (!level.isClientSide()) {

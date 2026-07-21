@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.5-26.2] - 2026-07-21
+
+### Refactored
+- **State Storage Architecture Overhaul**: Replaced static `ConcurrentHashMap` with instance-scoped mixin fields on `Player`. Completely eliminated JVM static memory leaks on player disconnects and prevented singleplayer client/server thread state pollution.
+- **Native Respawn State Copying**: Integrated Fabric's native `ServerPlayerEvents.COPY_FROM` hook to copy player toggle preferences directly from old to new entity instances upon death/respawn and dimension changes.
+
+### Fixed
+- **Instant Pickup Safety Gating**: Added spectator and dead checks to `PlayerMixin.ig_magnet$expandPickupArea` so dying or spectating players cannot vacuum items in instant mode.
+
 ## [1.3.4-26.2] - 2026-07-15
 
 ### Fixed

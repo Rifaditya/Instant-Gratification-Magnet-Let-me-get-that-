@@ -27,7 +27,7 @@ public class MagnetModClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleKey.consumeClick()) {
-                if (client.player != null) {
+                if (client.player != null && !client.player.isDeadOrDying() && !client.player.isSpectator()) {
                     boolean currentLocalState = ((IMagnetPlayer) client.player).ig_magnet$isMagnetEnabled();
                     boolean newState = !currentLocalState;
                     MagnetDebugLogger.log("MagnetModClient: Keybind clicked by %s (%s) currentLocalState=%b newState=%b", client.player.getScoreboardName(), client.player.getUUID(), currentLocalState, newState);
