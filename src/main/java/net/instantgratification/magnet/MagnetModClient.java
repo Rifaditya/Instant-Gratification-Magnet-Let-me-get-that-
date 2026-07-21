@@ -16,9 +16,17 @@ public class MagnetModClient implements ClientModInitializer {
         Identifier.fromNamespaceAndPath(MagnetMod.MOD_ID, "magnet")
     );
 
+    private static InputConstants.Type ig_magnet$getKeyboardType() {
+        try {
+            return Enum.valueOf(InputConstants.Type.class, "KEYBOARD");
+        } catch (IllegalArgumentException e) {
+            return Enum.valueOf(InputConstants.Type.class, "KEYSYM");
+        }
+    }
+
     public static final KeyMapping toggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
         "key.ig_magnet.toggle",
-        InputConstants.Type.KEYSYM,
+        ig_magnet$getKeyboardType(),
         GLFW.GLFW_KEY_BACKSLASH,
         MAGNET_CATEGORY
     ));

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.6-26.2+] - 2026-07-21
+
+### Fixed
+- **Cross-Version InputConstants Crash**: Resolved `NoSuchFieldError` crash during game startup on Minecraft 26.3 Snapshot 4 by replacing static `InputConstants.Type.KEYSYM` references with a dynamic runtime lookup helper. Supports both Minecraft 26.2 (`KEYSYM`) and 26.3+ (`KEYBOARD`) in a single unified JAR.
+
 ## [1.3.5-26.2] - 2026-07-21
 
 ### Refactored

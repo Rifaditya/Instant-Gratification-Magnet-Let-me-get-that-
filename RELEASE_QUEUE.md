@@ -41,6 +41,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [x] **`1.3.3-26.2`** (2026-07-15) - - **Debugging Command & Logs**: Added in-game /magnet debug command and precise logger outputs to resolve player respawn state desync.
 - [x] **`1.3.4-26.2`** (2026-07-15) - - **Post-Death Vision Fix & Dedicated Debug Log**: Migrated vision check to vanilla raycast to fix magnet after death. Added dedicated log writer for ig_magnet_debug.log.
 - [x] **`1.3.5-26.2`** (2026-07-21) - - **Backend State Architecture Overhaul**: Replaced static Map with instance mixin fields. Integrated ServerPlayerEvents.COPY_FROM for leak-free, 100% reliable respawn state persistence. Added instant pickup safety gating for dead/spectator states.
+- [x] **`1.3.6-26.2+`** (2026-07-21) - - **Cross-Version InputConstants Crash**: Resolved NoSuchFieldError crash on Minecraft 26.3 Snapshot 4 by replacing static InputConstants.Type.KEYSYM references with a dynamic runtime lookup helper. Supports both Minecraft 26.2 and 26.3+.
 
 
 
