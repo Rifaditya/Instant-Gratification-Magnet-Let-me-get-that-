@@ -1,0 +1,30 @@
+# 📋 Magnet, Let me get that! Release Queue & Backlog
+
+This file tracks which built versions (from the central archive folder "E:\Minecraft Project\Instant Gratification Collection\Magnet Let me get that\Archive Jar of all versions") have been manually uploaded to Modrinth/CurseForge.
+Open this file in your editor and change `[ ]` to `[x]` when you publish a version.
+
+## 🚀 Published & Backlog Queue
+
+- [ ] **`1.1.2+26.1.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
+- [x] **`1.1.1+26.1.2`** (2026-07-11) - - Appended `§6Notice:§r` warning notice to all config option descriptions inside `en_us.json`.
+- [x] **`1.0.0+build.1`** (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
+- [x] **`1.0.0+build.2`** (2026-02-21) - - **Refactor**: Replaced legacy `GameRulesInvoker` mixins and registry boilerplate with standard `DynamicGameRuleManager` calls. - - **Dependency**: Added `dasik-library` as a standalone compile dependency.
+- [x] **`1.0.0+build.3`** (2026-02-27) - - **Instant Teleport Feature**: `ig_magnet_instant` gamerule now utilizes AABB area expansion on the player to natively capture items with 0 travel time, preserving vanilla pickup logic without duplicating inventory insertion logic. - - **Documentation**: Added comprehensive `doc.md` and synced translation keys for UI.
+- [x] **`1.0.0+build.4`** (2026-02-27) - - **Regression**: Restored the core item vacuum functionality. `MixinPlayer` was unintentionally removed from mixin configuration during the Instant Teleport implementation. Both instant and pull mechanics now function concurrently.
+- [x] **`1.0.0+build.5`** (2026-02-27) - - **Performance & Smoothness**: Restored client-side physics prediction to prevent visual stuttering and lag on item pulling. - - **Responsiveness**: Moved the magnetism hook to the start of the player tick (from tail to head) to eliminate a 1-tick delay upon items reaching the player's pickup radius.
+- [x] **`1.0.0+build.6`** (2026-02-28) - - **Internal State**: Extended `IMagnetEntity` to support persistent magnetization tracking.
+- [x] **`1.0.0+build.8`** (2026-02-28) - - **LOS-Aware Magnetism**: Integrated DasikLibrary's `PlayerVisionTracker`. - - **GameRules**: Added `ig_magnet_los_only` and `ig_magnet_keep_moving_if_unseen` for granular visibility control.
+- [x] **`1.0.0+build.9`** (2026-02-28) - - **LOS State Tracking**: Replaced momentum heuristics with a proper `ig$isMagnetized()` flag via Mixin. This prevents the "false-pull" bug where items popped from dispensers or explosions were pulled through walls without being seen.
+- [x] **`1.0.0+build.10`** (2026-02-28) - - **Master Toggle**: Added `ig_magnet_enabled` GameRule to allow players/servers to disable the magnet entirely.
+- [x] **`1.0.1+A-26.1.2`** (2026-06-06) - - **Client-Side Crash**: Resolved a `ClassCastException` in `MagnetMovement.pull` by replacing the direct `ServerLevel` cast check with `instanceof` and providing a client-side particle fallback. - - **Lag Prevention Particle Limit**: Added `ig:magnet_max_particle_sources` GameRule to control the maximum number of entities allowed to spawn particles simultaneously per tick (Default: 5).
+- [x] **`1.0.2+A-26.1.2`** (2026-06-06) - - **Mixin Consolidation**: Merged player mixin classes into `PlayerMixin.java` and cleaned up `magnet.mixins.json`.
+- [x] **`1.0.3+A-26.1.2`** (2026-06-06) - - **Permanent NoClip Bug**: Resolved issue where magnetized items permanently lost gravity/physics and fell through blocks. We now save `noPhysics` on `move:HEAD` and restore it on `move:RETURN`.
+- [x] **`1.0.4+A-26.1.2`** (2026-06-06) - - **Tick Gating**: Gated magnet ticking to the server-side to prevent redundant calculations and desync jitter on the client. - - **Class-Specific Scanning**: Upgraded generic entity scanning to class-specific `getEntitiesOfClass` queries, reducing complexity from $O(N)$ (scanning all entities) to $O(M)$ (scanning only items and XP orbs).
+- [x] **`1.0.5+A-26.1.2`** (2026-06-06) - - **Lambda Allocation Elimination**: Refactored `SecondaryVisionCheck.java` to pass a static `VisionContext` record and use static method references during block traversal, eliminating heap closures and reducing GC collector pressure.
+- [x] **`1.0.6+A-26.1.2`** (2026-06-06) - - **Optional Config GUI**: Added ModMenu + Cloth Config integration using reflection-safe isolated loading. - - **JSON Defaults Storage**: Implemented JSON default values storage in `ig_magnet.json` to configure baseline defaults for new worlds.
+- [x] **`1.0.7+A-26.1.2`** (2026-06-06) - - **Config GUI Alignment**: Added the static warning text block at the top of all configuration categories (General, Speeds, Line of Sight, and Visuals & Performance) and removed individual setting tooltips.
+- [x] **`1.0.8+A-26.1.2`** (2026-06-06) - - **Default Settings**: Changed the default value of Line of Sight Only (`losOnly`) from `false` to `true`.
+- [x] **`1.0.10+B-26.1.2`** (2026-06-11) - - **Client-Side Visual Ghosting**: Gated all magnetism and movement mixin calls to the logical server, eliminating local client-side prediction desync when pulling items behind blocks. - - **Audit Compliance**: Cleaned up unused imports in `SecondaryVisionCheck.java` and `MagnetMovement.java`. Added missing decompile source citation to `MagnetMod.java`.
+- [x] **`1.1.0+A-26.1.2`** (2026-06-12) - - **Client Magnet Toggle Hotkey**: Added a client-side keybinding (`Ctrl+M` by default) to toggle the item magnet on/off for the player. - - **Server Toggle Command**: Registered `/ig_magnet toggle` and `/magnet toggle` server-side commands, enabling vanilla clients (server-side only mod setup) to toggle their magnet state, while maintaining sync with modded clients.
+- [ ] **`1.1.1+26.1.2`** (2026-07-11) - - Standardized Config Warning. - - Appended gold warning notice to option descriptions inside en_us.json and wired them to Cloth Config screen tooltips to clarify config-only behavior.
+

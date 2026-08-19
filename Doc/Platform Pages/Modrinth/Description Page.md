@@ -14,7 +14,7 @@
 
 # 🧲 Magnet, Let me get that!
 
-**No Backports:** This mod targets **Minecraft 26.1+**. Older versions are unsupported.
+**Active Version Policy:** I build **1 JAR for 1 Version**. I only update and maintain the latest active Minecraft version (e.g. when 26.3 is released, 26.2 is retired). No backports or legacy version maintenance. Please do not ask.
 
 > **"If you can see it, you should have it."**
 

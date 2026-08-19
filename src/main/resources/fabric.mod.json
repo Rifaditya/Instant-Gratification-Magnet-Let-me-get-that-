@@ -3,7 +3,7 @@
     "id": "ig_magnet",
     "version": "${version}",
     "name": "Magnet, Let me get that!",
-    "description": "Magnet, Let me get that. An intrinsic item vacuum for the modern player.",
+    "description": "Magnet, Let me get that. An intrinsic item vacuum with LOS-aware magnetism for the modern player.",
     "authors": [
         "DasikIgaijin"
     ],
@@ -20,6 +20,9 @@
         ],
         "client": [
             "net.instantgratification.magnet.MagnetModClient"
+        ],
+        "modmenu": [
+            "net.instantgratification.magnet.config.ModMenuIntegration"
         ]
     },
     "mixins": [
@@ -27,9 +30,13 @@
     ],
     "depends": {
         "fabricloader": ">=0.16.10",
-        "minecraft": "~26.1-",
+        "minecraft": "*",
         "java": ">=25",
         "fabric-api": "*",
         "dasik-library": "*"
+    },
+    "suggests": {
+        "cloth-config": "*",
+        "modmenu": "*"
     }
 }
