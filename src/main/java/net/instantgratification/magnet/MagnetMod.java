@@ -16,6 +16,7 @@ public class MagnetMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        net.instantgratification.magnet.util.ModVersionGuard.checkClass("Magnet", "net.minecraft.world.entity.item.ItemEntity");
         LOGGER.info("Magnet, Let me get that! Initializing...");
         MagnetConfig.load(FabricLoader.getInstance().getConfigDir());
         ModGameRules.register();

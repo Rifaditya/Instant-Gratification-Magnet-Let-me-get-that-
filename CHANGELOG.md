@@ -1,8 +1,38 @@
 # Changelog
 
+## [1.3.9+26.2] - 2026-08-19
+
+### Changed
+- **Modernized Raytracing & LOS Engine**:
+  - Upgraded to `dasik-library` 1.8.23 on-demand vision engine.
+  - Removed obsolete background-polling listener registrations from `MagnetManager.tick()`, eliminating useless per-tick method invocations.
+  - Upgraded `MagnetMovement.pull()` to 360° spherical Line-Of-Sight raycasting (`PlayerVisionTracker.canSee(player, entity, range, 360.0)`), allowing items in open rooms behind the player to be magnetized with 0.0001μs distance fast-failing.
+  - Added null safety and pre-filtered distance checks to `SecondaryVisionCheck`.
+
+## [1.3.8+26.2] - 2026-07-22
+
+### ⚠️ Version Guard Notice
+- Includes zero-dependency ModVersionGuard pre-release protection. Halts startup with an explicit warning banner if run on incompatible Minecraft drops or missing core dependencies to prevent world save corruption.
+
+### Fixed
+- **ModVersionGuard Protection Banner**: Updated ModVersionGuard.java to use Knot ClassLoader resolution (Thread.currentThread().getContextClassLoader()) and display explicit pre-release protection warnings upon an API mismatch.
+
+## [1.3.8+26.2] - 2026-07-22
+
+### ⚠️ Version Guard Notice
+- Includes zero-dependency `ModVersionGuard` pre-release protection. Halts startup with an explicit warning banner if run on incompatible Minecraft drops or missing core dependencies to prevent world save corruption.
+
+### Fixed
+- **ModVersionGuard Protection Banner**: Updated `ModVersionGuard.java` to use Knot ClassLoader resolution (`Thread.currentThread().getContextClassLoader()`) and display explicit pre-release protection warnings upon an API mismatch.
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+
+## [1.3.7+26.2] - 2026-07-22
+
+### Added
+- **Forward Compatibility & Version Guard**: Configured `fabric.mod.json` with `"minecraft": ">=26.2-"` for open-ended forward compatibility. Added zero-dependency `ModVersionGuard` check on startup to display human-readable guidance if an incompatible Minecraft API version is encountered.
 
 ## [1.3.6-26.2+] - 2026-07-21
 

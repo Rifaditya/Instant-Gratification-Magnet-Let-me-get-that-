@@ -26,14 +26,6 @@ public class MagnetManager {
 
         // Check range
         int range = ModGameRules.getInt(player.level(), ModGameRules.MAGNET_RANGE);
-
-        // Link DasikLibrary PlayerVisionTracker
-        if (ModGameRules.getBoolean(player.level(), ModGameRules.MAGNET_LOS_ONLY)) {
-            net.dasik.social.api.vision.PlayerVisionTracker.registerListener(MagnetMod.MOD_ID, (double) range);
-        } else {
-            net.dasik.social.api.vision.PlayerVisionTracker.unregisterListener(MagnetMod.MOD_ID);
-        }
-
         if (range <= 0)
             return;
 

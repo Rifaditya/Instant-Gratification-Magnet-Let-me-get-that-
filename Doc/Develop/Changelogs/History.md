@@ -1,5 +1,12 @@
 # Changelog History
 
+## [1.3.9+26.2] - 2026-08-19
+
+### Modernized Raytracing & LOS Engine
+* **What**: Upgraded to `dasik-library` 1.8.23 on-demand vision engine, removed obsolete background-polling listener registrations from `MagnetManager.tick()`, and enabled 360° spherical Line-Of-Sight raycasting (`PlayerVisionTracker.canSee(player, entity, range, 360.0)`).
+* **Why**: To eliminate useless tick loop registrations and allow items in open rooms behind the player to be magnetized with 0.0001μs distance fast-failing.
+* **How**: Updated `MagnetMovement.java`, `MagnetManager.java`, `SecondaryVisionCheck.java`, and `gradle.properties`.
+
 ## [1.2.0+26.2] - 2026-07-11
 
 ### Migrate GUI config screen to YACL v3

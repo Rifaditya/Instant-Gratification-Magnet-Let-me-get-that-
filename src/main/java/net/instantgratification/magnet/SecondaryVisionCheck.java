@@ -1,4 +1,4 @@
-// Verified against: ClipContext.java (26.2+)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet;
 
 import net.minecraft.core.BlockPos;
@@ -13,7 +13,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SecondaryVisionCheck {
+public final class SecondaryVisionCheck {
+
+    private SecondaryVisionCheck() {}
 
     private static final ThreadLocal<Context> CONTEXT = ThreadLocal.withInitial(Context::new);
 
@@ -43,12 +45,20 @@ public class SecondaryVisionCheck {
      * the path is otherwise clear or contains non-visual solids (like glass).
      */
     public static boolean canSee(Player player, Entity target, boolean blockTransparent, boolean blockFlora, boolean blockEntities) {
+        if (player == null || target == null || target.isRemoved()) {
+            return false;
+        }
+
         // If no granular blocking rules are active, skip the secondary check to save TPS
         if (!blockTransparent && !blockFlora && !blockEntities) {
             return true;
         }
 
         Level level = player.level();
+        if (level == null || target.level() != level) {
+            return false;
+        }
+
         Vec3 start = player.getEyePosition();
         Vec3 end = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2.0, target.getZ());
         CollisionContext collisionContext = CollisionContext.of(player);
@@ -57,9 +67,6 @@ public class SecondaryVisionCheck {
         context.set(level, blockTransparent, blockFlora, blockEntities, collisionContext, start, end);
 
         Boolean result = BlockGetter.traverseBlocks(start, end, context, SecondaryVisionCheck::checkBlock, ctx -> true);
-
-        // Clean up references to prevent memory leaks
-        context.set(null, false, false, false, null, null, null);
 
         return result != null ? result : true;
     }

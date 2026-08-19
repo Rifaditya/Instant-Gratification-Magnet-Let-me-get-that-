@@ -24,50 +24,43 @@ public class MagnetMovement {
 
         // 1.5. Line of Sight (LOS) Check
         if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_LOS_ONLY)) {
-            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
-                // Primary Pass: Solid Walls (Vanilla raycast)
-                Vec3 start = serverPlayer.getEyePosition();
-                Vec3 end = new Vec3(entity.getX(), entity.getY() + entity.getBbHeight() / 2.0, entity.getZ());
-                net.minecraft.world.level.ClipContext clipContext = new net.minecraft.world.level.ClipContext(
-                    start, end, net.minecraft.world.level.ClipContext.Block.VISUAL, net.minecraft.world.level.ClipContext.Fluid.NONE, serverPlayer
-                );
-                net.minecraft.world.phys.BlockHitResult hitResult = serverPlayer.level().clip(clipContext);
-                boolean canSee = hitResult.getType() == net.minecraft.world.phys.HitResult.Type.MISS;
+            int range = ModGameRules.getInt(level, ModGameRules.MAGNET_RANGE);
+            // Primary Pass: Solid Walls (360° spherical line-of-sight check with 0.3m contact tolerance)
+            boolean canSee = net.dasik.social.api.vision.PlayerVisionTracker.canSee(player, entity, (double) range, 360.0);
+            
+            // Secondary Pass: Granular Configuration (Glass, Flora, Entities)
+            if (canSee) {
+                boolean blockTransparent = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_TRANSPARENT);
+                boolean blockFlora = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_FLORA);
+                boolean blockEntities = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_BLOCK_ENTITIES);
                 
-                // Secondary Pass: Granular Configuration (Glass, Flora, Entities)
-                if (canSee) {
-                    boolean blockTransparent = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_TRANSPARENT);
-                    boolean blockFlora = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_FLORA);
-                    boolean blockEntities = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_BLOCK_ENTITIES);
-                    
-                    if (blockTransparent || blockFlora || blockEntities) {
-                        canSee = SecondaryVisionCheck.canSee(player, entity, blockTransparent, blockFlora, blockEntities);
-                    }
+                if (blockTransparent || blockFlora || blockEntities) {
+                    canSee = SecondaryVisionCheck.canSee(player, entity, blockTransparent, blockFlora, blockEntities);
                 }
+            }
 
-                if (!canSee) {
-                    if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_KEEP_MOVING_IF_UNSEEN)) {
-                        // If it's unseen, it MUST have been magnetized before to continue.
-                        // Using the injected Mixin flag, not scoreboard tags (no such API in Snapshot 26.1).
-                        if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
-                            if (entity.tickCount % 40 == 0) {
-                                MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: LOS check failed (unmagnetized).", serverPlayer.getScoreboardName(), serverPlayer.getUUID(), entity.getId());
-                            }
-                            return;
-                        }
-                    } else {
+            if (!canSee) {
+                if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_KEEP_MOVING_IF_UNSEEN)) {
+                    // If it's unseen, it MUST have been magnetized before to continue.
+                    // Using the injected Mixin flag, not scoreboard tags (no such API in Snapshot 26.1).
+                    if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
                         if (entity.tickCount % 40 == 0) {
-                            MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: Strict LOS check failed.", serverPlayer.getScoreboardName(), serverPlayer.getUUID(), entity.getId());
+                            MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: LOS check failed (unmagnetized).", player.getScoreboardName(), player.getUUID(), entity.getId());
                         }
-                        return; // Strict LOS requirement
+                        return;
                     }
                 } else {
-                    // It is seen! Flag it so it can keep moving if it loses LOS later.
-                    if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
-                        MagnetDebugLogger.log("MagnetMovement: Entity %d is now magnetized by %s (%s).", entity.getId(), serverPlayer.getScoreboardName(), serverPlayer.getUUID());
+                    if (entity.tickCount % 40 == 0) {
+                        MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: Strict LOS check failed.", player.getScoreboardName(), player.getUUID(), entity.getId());
                     }
-                    ((IMagnetEntity) entity).ig_magnet$setMagnetized();
+                    return; // Strict LOS requirement
                 }
+            } else {
+                // It is seen! Flag it so it can keep moving if it loses LOS later.
+                if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
+                    MagnetDebugLogger.log("MagnetMovement: Entity %d is now magnetized by %s (%s).", entity.getId(), player.getScoreboardName(), player.getUUID());
+                }
+                ((IMagnetEntity) entity).ig_magnet$setMagnetized();
             }
         } else {
             // Magnet is in normal mode, flag it anyway in case settings change mid-flight

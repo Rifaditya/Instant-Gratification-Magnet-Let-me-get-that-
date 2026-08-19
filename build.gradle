@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.15.2'
+    id 'net.fabricmc.fabric-loom' version '1.15.5'
     id 'maven-publish'
 }
 
@@ -26,7 +26,10 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    implementation "net.dasik.social:dasik-library:${project.dasik_library_version}"
+    implementation ("net.dasik.social:dasik-library:${project.dasik_library_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc"
+    }
 
     // Optional GUI Dependencies (compile-only required, runtime-optional for players)
     compileOnly "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
@@ -34,6 +37,14 @@ dependencies {
 
     compileOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
     runtimeOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
+
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 processResources {
@@ -66,4 +77,55 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archives_base_name}" }
     }
+}
+
+tasks.register('archiveReleaseJar') {
+    dependsOn 'build'
+    doLast {
+        def archiveDir = file("${project.rootDir}/../../Archive Jar of all versions/MC 26.2")
+        archiveDir.mkdirs()
+        def jarFile = tasks.named('jar', Jar).get().archiveFile.get().asFile
+        if (jarFile.exists()) {
+            copy {
+                from jarFile
+                into archiveDir
+            }
+            println "[AUTO-ARCHIVE] Successfully copied ${jarFile.name} to central Archive directory: ${archiveDir.absolutePath}"
+        }
+
+        // Modrinth Profile Sync
+        def profile1 = file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.2 (1)/mods")
+        if (profile1.exists()) {
+            profile1.listFiles().each { file ->
+                if (file.name.startsWith(project.archives_base_name) && file.name.endsWith(".jar") && !file.name.equals(jarFile.name)) {
+                    file.delete()
+                    println "[MODRINTH-SYNC] Purged old version from launcher profile: ${file.name}"
+                }
+            }
+            copy {
+                from jarFile
+                into profile1
+            }
+            println "[MODRINTH-SYNC] Deployed ${jarFile.name} to ${profile1.absolutePath}"
+        }
+
+        def profile2 = file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.x test the latest/mods")
+        if (profile2.exists()) {
+            profile2.listFiles().each { file ->
+                if (file.name.startsWith(project.archives_base_name) && file.name.endsWith(".jar") && !file.name.equals(jarFile.name)) {
+                    file.delete()
+                    println "[MODRINTH-SYNC] Purged old version from launcher profile: ${file.name}"
+                }
+            }
+            copy {
+                from jarFile
+                into profile2
+            }
+            println "[MODRINTH-SYNC] Deployed ${jarFile.name} to ${profile2.absolutePath}"
+        }
+    }
+}
+
+tasks.named('build') {
+    finalizedBy 'archiveReleaseJar'
 }

@@ -67,3 +67,7 @@ build_log_utf8.txt
 
 # Zenith Core Exclusion Policy
 Doc/Marketing/
+
+Archive/
+Archive Jar of all versions/
+*.jar

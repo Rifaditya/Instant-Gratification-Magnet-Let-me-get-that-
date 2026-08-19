@@ -5,7 +5,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [x] **`1.0.0`** (2026-02-16) - - Initial Release for Minecraft 26.1 Snapshot 7. - - **Vacuum Field**: Items within range fly to the player.
+- [ ] **`1.3.9+26.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
+- [x] **`1.3.8+26.2`** (2026-07-22) - - **ModVersionGuard**: Updated Knot ClassLoader resolution.
 - [x] **`1.0.0+build.1`** (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
 - [x] **`1.0.0+build.2`** (2026-02-21) - - **Refactor**: Replaced legacy `GameRulesInvoker` mixins and registry boilerplate with standard `DynamicGameRuleManager` calls. - - **Dependency**: Added `dasik-library` as a standalone compile dependency.
 - [x] **`1.0.0+build.3`** (2026-02-27) - - **Instant Teleport Feature**: `ig_magnet_instant` gamerule now utilizes AABB area expansion on the player to natively capture items with 0 travel time, preserving vanilla pickup logic without duplicating inventory insertion logic. - - **Documentation**: Added comprehensive `doc.md` and synced translation keys for UI.
@@ -42,6 +43,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [x] **`1.3.4-26.2`** (2026-07-15) - - **Post-Death Vision Fix & Dedicated Debug Log**: Migrated vision check to vanilla raycast to fix magnet after death. Added dedicated log writer for ig_magnet_debug.log.
 - [x] **`1.3.5-26.2`** (2026-07-21) - - **Backend State Architecture Overhaul**: Replaced static Map with instance mixin fields. Integrated ServerPlayerEvents.COPY_FROM for leak-free, 100% reliable respawn state persistence. Added instant pickup safety gating for dead/spectator states.
 - [x] **`1.3.6-26.2+`** (2026-07-21) - - **Cross-Version InputConstants Crash**: Resolved NoSuchFieldError crash on Minecraft 26.3 Snapshot 4 by replacing static InputConstants.Type.KEYSYM references with a dynamic runtime lookup helper. Supports both Minecraft 26.2 and 26.3+.
+- [x] **`1.3.7+26.2`** (2026-07-22) - Forward Compatibility & Version Guard.
+- [x] **`1.3.8+26.2`** (2026-07-22) - ModVersionGuard Knot ClassLoader Fix.
 
 
 
