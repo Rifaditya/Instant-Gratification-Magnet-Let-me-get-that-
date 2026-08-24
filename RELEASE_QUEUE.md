@@ -5,7 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.3.9+26.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
+- [x] **`1.3.9+26.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
 - [x] **`1.3.8+26.2`** (2026-07-22) - - **ModVersionGuard**: Updated Knot ClassLoader resolution.
 - [x] **`1.0.0+build.1`** (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
 - [x] **`1.0.0+build.2`** (2026-02-21) - - **Refactor**: Replaced legacy `GameRulesInvoker` mixins and registry boilerplate with standard `DynamicGameRuleManager` calls. - - **Dependency**: Added `dasik-library` as a standalone compile dependency.
