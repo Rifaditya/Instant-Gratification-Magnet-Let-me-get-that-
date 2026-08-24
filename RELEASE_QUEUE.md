@@ -5,7 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.1.2+26.1.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
+- [x] **`1.1.2+26.1.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
 - [x] **`1.1.1+26.1.2`** (2026-07-11) - - Appended `§6Notice:§r` warning notice to all config option descriptions inside `en_us.json`.
 - [x] **`1.0.0+build.1`** (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
 - [x] **`1.0.0+build.2`** (2026-02-21) - - **Refactor**: Replaced legacy `GameRulesInvoker` mixins and registry boilerplate with standard `DynamicGameRuleManager` calls. - - **Dependency**: Added `dasik-library` as a standalone compile dependency.
@@ -26,5 +26,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 - [x] **`1.0.8+A-26.1.2`** (2026-06-06) - - **Default Settings**: Changed the default value of Line of Sight Only (`losOnly`) from `false` to `true`.
 - [x] **`1.0.10+B-26.1.2`** (2026-06-11) - - **Client-Side Visual Ghosting**: Gated all magnetism and movement mixin calls to the logical server, eliminating local client-side prediction desync when pulling items behind blocks. - - **Audit Compliance**: Cleaned up unused imports in `SecondaryVisionCheck.java` and `MagnetMovement.java`. Added missing decompile source citation to `MagnetMod.java`.
 - [x] **`1.1.0+A-26.1.2`** (2026-06-12) - - **Client Magnet Toggle Hotkey**: Added a client-side keybinding (`Ctrl+M` by default) to toggle the item magnet on/off for the player. - - **Server Toggle Command**: Registered `/ig_magnet toggle` and `/magnet toggle` server-side commands, enabling vanilla clients (server-side only mod setup) to toggle their magnet state, while maintaining sync with modded clients.
-- [ ] **`1.1.1+26.1.2`** (2026-07-11) - - Standardized Config Warning. - - Appended gold warning notice to option descriptions inside en_us.json and wired them to Cloth Config screen tooltips to clarify config-only behavior.
 
