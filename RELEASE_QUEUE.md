@@ -5,7 +5,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.1.3+26.1.2`** (2026-09-05) - - **YACL v3 Migration**: Migrated in-game configuration GUI from Cloth Config to YetAnotherConfigLib v3 (YACL) for unified cross-version consistency. - - **Creator Support**: Integrated top-pinned Ko-fi support button into General configuration category. - - **Dependency Alignment**: Upgraded DasikLibrary dependency to 1.8.38.
+- [ ] **`1.1.4+26.1.2`** (2026-09-05) - - **Config Uniformity**: Added top-pinned Ko-fi creator support button across Speeds, LOS, and Visuals categories. - - **Localization Polish**: Reframed config warning and removed repetitive notice boilerplate from option descriptions in `en_us.json`.
+- [x] **`1.1.3+26.1.2`** (2026-09-05) - - **YACL v3 Migration**: Migrated in-game configuration GUI from Cloth Config to YetAnotherConfigLib v3 (YACL) for unified cross-version consistency. - - **Creator Support**: Integrated top-pinned Ko-fi support button into General configuration category. - - **Dependency Alignment**: Upgraded DasikLibrary dependency to 1.8.38.
 - [x] **`1.1.2+26.1.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
 - [x] **`1.1.1+26.1.2`** (SUPERSEDED) (2026-07-11) - - Appended `§6Notice:§r` warning notice to all config option descriptions inside `en_us.json`.
 - [x] **`1.0.0+build.1`** (SUPERSEDED) (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
