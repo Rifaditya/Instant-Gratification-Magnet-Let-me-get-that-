@@ -5,6 +5,7 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.gui.controllers.slider.IntegerSliderController;
+import net.dasik.social.api.config.DasikSupportHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -16,17 +17,17 @@ public class YaclScreenHelper {
     private static Screen buildScreen(Screen parent) {
         MagnetConfig config = MagnetConfig.get();
 
-        return YetAnotherConfigLib.createBuilder()
-            .title(Component.translatable("config.ig_magnet.title"))
-            
-            // GENERAL CATEGORY
-            .category(ConfigCategory.createBuilder()
-                .name(Component.translatable("config.ig_magnet.category.general"))
-                .group(OptionGroup.createBuilder()
-                    .name(Component.translatable("config.ig_magnet.category.general"))
-                    
-                    // Enabled
-                    .option(Option.<Boolean>createBuilder()
+        var generalGroup = OptionGroup.createBuilder()
+            .name(Component.translatable("config.ig_magnet.category.general"));
+
+        Option<?> supportButton = (Option<?>) DasikSupportHelper.createYaclButton();
+        if (supportButton != null) {
+            generalGroup.option(supportButton);
+        }
+
+        generalGroup
+            // Enabled
+            .option(Option.<Boolean>createBuilder()
                         .name(Component.translatable("config.ig_magnet.enabled"))
                         .description(OptionDescription.of(Component.translatable("config.ig_magnet.enabled.description")))
                         .binding(
@@ -75,9 +76,15 @@ public class YaclScreenHelper {
                         )
                         .controller(BooleanControllerBuilder::create)
                         .build()
-                    )
-                    .build()
-                )
+                    );
+
+        return YetAnotherConfigLib.createBuilder()
+            .title(Component.translatable("config.ig_magnet.title"))
+            
+            // GENERAL CATEGORY
+            .category(ConfigCategory.createBuilder()
+                .name(Component.translatable("config.ig_magnet.category.general"))
+                .group(generalGroup.build())
                 .build()
             )
             
