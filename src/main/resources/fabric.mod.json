@@ -38,5 +38,13 @@
     "suggests": {
         "yet-another-config-lib": "*",
         "modmenu": "*"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.donate": "https://ko-fi.com/dasikigaijin",
+                "modmenu.kofi": "https://ko-fi.com/dasikigaijin"
+            }
+        }
     }
 }
