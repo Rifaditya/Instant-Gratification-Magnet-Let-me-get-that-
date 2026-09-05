@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet.config;
 
 // Verified against: YaclScreenHelper.java (YACL 3.9.5)
@@ -14,18 +15,19 @@ public class YaclScreenHelper {
         return YaclScreenHelper::buildScreen;
     }
 
+    private static OptionGroup.Builder createGroup(Component name) {
+        OptionGroup.Builder builder = OptionGroup.createBuilder().name(name);
+        Option<?> supportButton = (Option<?>) DasikSupportHelper.createYaclButton();
+        if (supportButton != null) {
+            builder.option(supportButton);
+        }
+        return builder;
+    }
+
     private static Screen buildScreen(Screen parent) {
         MagnetConfig config = MagnetConfig.get();
 
-        var generalGroup = OptionGroup.createBuilder()
-            .name(Component.translatable("config.ig_magnet.category.general"));
-
-        Option<?> supportButton = (Option<?>) DasikSupportHelper.createYaclButton();
-        if (supportButton != null) {
-            generalGroup.option(supportButton);
-        }
-
-        generalGroup
+        var generalGroup = createGroup(Component.translatable("config.ig_magnet.category.general"))
             // Enabled
             .option(Option.<Boolean>createBuilder()
                         .name(Component.translatable("config.ig_magnet.enabled"))
@@ -91,8 +93,7 @@ public class YaclScreenHelper {
             // SPEEDS CATEGORY
             .category(ConfigCategory.createBuilder()
                 .name(Component.translatable("config.ig_magnet.category.speeds"))
-                .group(OptionGroup.createBuilder()
-                    .name(Component.translatable("config.ig_magnet.category.speeds"))
+                .group(createGroup(Component.translatable("config.ig_magnet.category.speeds"))
                     
                     // Speed
                     .option(Option.<Integer>createBuilder()
@@ -127,8 +128,7 @@ public class YaclScreenHelper {
             // LINE OF SIGHT CATEGORY
             .category(ConfigCategory.createBuilder()
                 .name(Component.translatable("config.ig_magnet.category.los"))
-                .group(OptionGroup.createBuilder()
-                    .name(Component.translatable("config.ig_magnet.category.los"))
+                .group(createGroup(Component.translatable("config.ig_magnet.category.los"))
                     
                     // losOnly
                     .option(Option.<Boolean>createBuilder()
@@ -202,8 +202,7 @@ public class YaclScreenHelper {
             // VISUALS & PERFORMANCE CATEGORY
             .category(ConfigCategory.createBuilder()
                 .name(Component.translatable("config.ig_magnet.category.visuals"))
-                .group(OptionGroup.createBuilder()
-                    .name(Component.translatable("config.ig_magnet.category.visuals"))
+                .group(createGroup(Component.translatable("config.ig_magnet.category.visuals"))
                     
                     // affectsXp
                     .option(Option.<Boolean>createBuilder()

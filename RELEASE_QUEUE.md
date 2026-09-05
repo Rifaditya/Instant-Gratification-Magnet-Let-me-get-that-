@@ -5,7 +5,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.3.10+26.2`** (2026-09-05) - - **Ko-fi Support Integration**: Injected top-pinned Ko-fi creator support button into YACL in-game configuration screen. Upgraded to DasikLibrary 1.8.38.
+- [ ] **`1.3.11+26.2`** (2026-09-05) - - **Config Uniformity**: Added top-pinned Ko-fi creator support button across Speeds, LOS, and Visuals categories. - - **Localization Polish**: Reframed config warning and removed repetitive notice boilerplate from option descriptions in `en_us.json`.
+- [x] **`1.3.10+26.2`** (2026-09-05) - - **Ko-fi Support Integration**: Injected top-pinned Ko-fi creator support button into YACL in-game configuration screen. Upgraded to DasikLibrary 1.8.38.
 - [x] **`1.3.9+26.2`** (2026-08-19) - - **Modernized Raytracing & LOS Engine**: Upgraded to DasikLibrary 1.8.23 on-demand vision engine, removed obsolete per-tick listener registrations, and enabled 360° spherical line-of-sight checks.
 - [x] **`1.3.8+26.2`** (2026-07-22) - - **ModVersionGuard**: Updated Knot ClassLoader resolution.
 - [x] **`1.0.0+build.1`** (SUPERSEDED) (2026-02-21) - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
