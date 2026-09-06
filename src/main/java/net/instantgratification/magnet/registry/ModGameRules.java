@@ -1,4 +1,4 @@
-// Verified against: GameRules.java (26.2+)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet.registry;
 
 import net.instantgratification.magnet.config.MagnetConfig;
@@ -39,7 +39,7 @@ public class ModGameRules {
                 .description("Enables or disables the Item Magnet.")
                 .register();
         MAGNET_RANGE = DynamicGameRuleManager.integerRule("ig:magnet_range", MAGNET_CATEGORY, config.getRange())
-                .range(1, 64)
+                .range(1, Integer.MAX_VALUE)
                 .name("Magnet Range")
                 .description("The block radius the magnet will attract items from.")
                 .register();
@@ -56,22 +56,22 @@ public class ModGameRules {
                 .description("Spawns particles on items while they are being attracted.")
                 .register();
         MAGNET_PARTICLE_COUNT = DynamicGameRuleManager.integerRule("ig:magnet_particle_count", MAGNET_CATEGORY, config.getParticleCount())
-                .range(0, 100)
+                .range(0, Integer.MAX_VALUE)
                 .name("Particle Count")
                 .description("The number of particles to spawn per item per tick.")
                 .register();
         MAGNET_MAX_PARTICLE_SOURCES = DynamicGameRuleManager.integerRule("ig:magnet_max_particle_sources", MAGNET_CATEGORY, config.getMaxParticleSources())
-                .range(0, 100)
+                .range(0, Integer.MAX_VALUE)
                 .name("Max Particle Sources")
                 .description("Maximum number of entities allowed to spawn particles simultaneously per tick to prevent lag.")
                 .register();
         MAGNET_SPEED_PERCENT = DynamicGameRuleManager.integerRule("ig:magnet_speed", MAGNET_CATEGORY, config.getSpeed())
-                .range(1, 1000)
+                .range(Integer.MIN_VALUE, Integer.MAX_VALUE)
                 .name("Item Speed")
                 .description("The speed at which items fly towards the player.")
                 .register();
         MAGNET_ACCELERATION_PERCENT = DynamicGameRuleManager.integerRule("ig:magnet_acceleration", MAGNET_CATEGORY, config.getAcceleration())
-                .range(1, 1000)
+                .range(Integer.MIN_VALUE, Integer.MAX_VALUE)
                 .name("Item Acceleration")
                 .description("How quickly items reach maximum speed.")
                 .register();

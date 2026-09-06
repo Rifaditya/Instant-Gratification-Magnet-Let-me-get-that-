@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

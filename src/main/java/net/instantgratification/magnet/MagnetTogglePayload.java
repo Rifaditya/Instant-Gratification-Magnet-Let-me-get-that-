@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: CustomPacketPayload.java (26.2+)
 package net.instantgratification.magnet;
 

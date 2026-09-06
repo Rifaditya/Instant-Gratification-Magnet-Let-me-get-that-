@@ -1,4 +1,4 @@
-// Verified against: BetterDogsConfig.java (26.2+)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet.config;
 
 import java.nio.file.Path;

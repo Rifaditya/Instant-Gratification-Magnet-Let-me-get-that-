@@ -1,4 +1,4 @@
-// Verified against: Player.java (26.2+)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet.mixin;
 
 import net.instantgratification.magnet.MagnetManager;
@@ -9,7 +9,7 @@ import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.instantgratification.magnet.IMagnetPlayer;
@@ -94,10 +94,10 @@ public class PlayerMixin implements IMagnetPlayer {
         }
     }
 
-    @ModifyVariable(
-            method = "aiStep",
-            at = @At(value = "STORE"),
-            ordinal = 0
+    @ModifyArg(
+        method = "aiStep",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"),
+        index = 1
     )
     private AABB ig_magnet$expandPickupArea(AABB pickupArea) {
         Player player = (Player) (Object) this;
@@ -111,9 +111,6 @@ public class PlayerMixin implements IMagnetPlayer {
             if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_ENABLED) && ModGameRules.getBoolean(level, ModGameRules.MAGNET_INSTANT)) {
                 int range = ModGameRules.getInt(level, ModGameRules.MAGNET_RANGE);
                 if (range > 0) {
-                    // Inflate the pickup area uniformly by the magnet's configured range
-                    // Note: The vanilla bounding box normally gets inflated by ~1.0. 
-                    // This creates a massive scoop radius that instantly picks up items using vanilla logic.
                     return pickupArea.inflate(range);
                 }
             }

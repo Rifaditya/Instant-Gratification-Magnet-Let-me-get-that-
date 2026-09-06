@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.14+26.2] - 2026-09-05
+
+### Changed
+- **DasikLibrary 1.8.39 Alignment**: Upgraded to DasikLibrary 1.8.39, adopting formal `@DasikApiStatus` / `@APIDasikStatus` API governance and client side-safety architecture.
+- **License Normalization**: Standardized single-line GPLv3 headers across all source files.
+
+## [1.3.13+26.2] - 2026-09-05
+
+### Fixed
+- **Client Side-Safety Annotations**: Annotated `YaclScreenHelper`, `ModMenuIntegration`, and `MagnetModClient` with `@Environment(EnvType.CLIENT)`, eliminating dedicated server classloading hazards and aligning with the Client Side-Safety Standard.
+
+## [1.3.12+26.2] - 2026-09-05
+
+### Changed
+- **Mixin Modernization**: Refactored brittle ordinal `@ModifyVariable(at = @At("STORE"), ordinal = 0)` in `PlayerMixin` to targeted `@ModifyArg` on `Level.getEntitiesOfClass(...)`, eliminating local variable index fragility.
+- **Player Agency & True Sandbox Freedom**: Unlocked `MAGNET_RANGE` to `.range(1, Integer.MAX_VALUE)`, and unlocked speeds, accelerations, and particle caps to `Integer.MAX_VALUE` (and `Integer.MIN_VALUE` for speeds enabling repulsive magnet physics).
+- **License Header Standardization**: Normalized headers to single-line GPLv3 format.
+
 ## [1.3.9+26.2] - 2026-08-19
 
 ### Changed
