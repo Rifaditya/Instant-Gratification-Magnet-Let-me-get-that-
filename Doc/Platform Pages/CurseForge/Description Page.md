@@ -92,9 +92,11 @@ If you enjoy the **Instant Gratification** collection, consider fueling the next
 ---
 
 <blockquote>
-<strong>Modpack Permissions:</strong> You are free to include this mod in modpacks, <strong>provided the modpack is hosted on the same platform</strong> (e.g. CurseForge).
-<br><br>
-<strong>Cross-platform distribution is not permitted.</strong> If you download this mod from CurseForge, your modpack must also be published on CurseForge.
+  <p><strong>📦 Modpack Permissions &amp; Distribution:</strong><br>
+  You are fully welcome to include this mod in any modpack on any platform! However, the mod file must be downloaded directly through official distribution channels (<strong>CurseForge</strong> or <strong>Modrinth</strong>). Re-uploading, mirroring, or redistributing the original mod JAR to third-party mirror sites, scraper portals, or unauthorized launchers is strictly prohibited.</p>
+  <p><strong>⚖️ License &amp; Fork Guidelines (No Zero-Change Re-uploads):</strong><br>
+  This project is open-source under the <strong>GNU GPLv3</strong>. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports&mdash;provided your project remains open-source under GPLv3 with proper attribution.<br>
+  <strong>However, straight 1:1 re-uploads, clone forks with no meaningful functional changes, or re-publishing identical builds under different project names (e.g. to farm downloads or rewards) are strictly forbidden.</strong></p>
 </blockquote>
 
 ---
