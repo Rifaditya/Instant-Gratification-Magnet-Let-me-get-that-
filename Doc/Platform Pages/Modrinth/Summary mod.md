@@ -1,0 +1,1 @@
+An intrinsic item vacuum for the modern player. Items fly to you instantly, phasing through walls and ignoring obstacles. Configurable range, speed, and visuals via GameRules. Part of the Instant Gratification Collection.
