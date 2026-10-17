@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.16+26.2] - 2026-10-18
+
+### Changed
+- **UniversalConfigScreen Migration**: Migrated in-game configuration screen to DasikLibrary's `UniversalConfigScreen` and `@ConfigOption` architecture, purging 270 lines of custom YACL boilerplate.
+- **Automated Creator Support**: Embedded Ko-fi and Discord creator support touchpoints into all configuration categories.
+- **Live GameRule Synchronization**: Adjusting client GUI sliders now synchronizes in real time with active world GameRules.
+- **Dependency Update**: Upgraded to DasikLibrary 1.11.2.
+
 ## [1.3.14+26.2] - 2026-09-05
 
 ### Changed
