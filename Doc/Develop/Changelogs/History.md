@@ -1,4 +1,19 @@
-# Changelog History
+# Developer History Ledger: Magnet (Let Me Get That!)
+
+## [1.3.16] - 2026-10-18 - Client Configuration GUI UniversalConfigScreen Migration [BL-MAG-005]
+
+- **Ticket Reference**: [BL-MAG-005] (Master Reference: BL-WS-023)
+- **Scope**: Client GUI & Config Architecture across MC 26.3 and MC 26.2
+- **Governance Mandate**: Item 1.5 of the Studio Constitution (Universal Zero-Boilerplate Client GUI Standard)
+
+### Engineering Changes
+- **UniversalConfigScreen Migration**: Migrated in-game configuration screen from custom 270 LOC `YaclScreenHelper.java` to DasikLibrary's `UniversalConfigScreen` (`UniversalConfigScreen.createFactory("ig_magnet", MagnetConfig.get(), MagnetConfig::save)`).
+- **@ConfigOption Annotations**: Annotated all 15 configuration fields in `MagnetConfig.java` (`enabled`, `range`, `instant`, `noClip`, `speed`, `acceleration`, `losOnly`, `keepMovingIfUnseen`, `blockedByTransparent`, `blockedByFlora`, `blockedByBlockEntities`, `affectsXp`, `particles`, `particleCount`, `maxParticleSources`) with `@ConfigOption(syncGameRule = true, gameRuleName = ...)`.
+- **Boilerplate Purge**: Permanently deleted `YaclScreenHelper.java` across both MC 26.3 and MC 26.2, purging 539 lines of boilerplate.
+- **Automated Creator Support**: Embedded Ko-fi and Discord creator support action buttons into all configuration categories.
+- **Headless Unit Tests**: Added comprehensive reflection test suite in `MagnetConfigTest.java` verifying presence, bounds, slider flags, and GameRule names for all 15 fields.
+- **Dependencies**: Bounded `dasik-library` dependency to `>=1.11.0` in `fabric.mod.json` and compiled with `dasik_library_version=1.11.2`.
+- **4-Point Distribution**: Deployed `magnet-1.3.16+26.3.jar` and `Magnet-Let-me-get-that-1.3.16+26.2.jar` to Local Archive, Central Hub Archive, and Vault D:.
 
 ## [1.3.9+26.2] - 2026-08-19
 
