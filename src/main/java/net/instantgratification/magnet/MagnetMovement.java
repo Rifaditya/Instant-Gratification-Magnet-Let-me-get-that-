@@ -103,6 +103,7 @@ public class MagnetMovement {
         Vec3 newVel = currentVel.lerp(targetVel, acceleration);
 
         entity.setDeltaMovement(newVel);
+        entity.syncVelocity = true;
         if (entity.onGround()) {
             entity.setOnGround(false);
             entity.setPos(entity.position().add(0, 0.05, 0));

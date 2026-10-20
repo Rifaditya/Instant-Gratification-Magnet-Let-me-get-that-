@@ -8,8 +8,9 @@
     "DasikIgaijin"
   ],
   "contact": {
-    "homepage": "https://github.com/Rifaditya/Instant-Gratification-Magnet",
-    "sources": "https://github.com/Rifaditya/Instant-Gratification-Magnet"
+    "homepage": "https://modrinth.com/mod/instant-gratification-magnet,-let-me-get-that!",
+    "sources": "https://github.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-",
+    "issues": "https://github.com/Rifaditya/Instant-Gratification-Magnet-Let-me-get-that-/issues"
   },
   "license": "GPL-3.0-or-later",
   "icon": "assets/magnet/icon.png",
@@ -40,6 +41,10 @@
     "modmenu": "*"
   },
   "custom": {
+    "modrinth": {
+      "projectId": "VliM7tyU",
+      "slug": "instant-gratification-magnet,-let-me-get-that!"
+    },
     "modmenu": {
       "links": {
         "modmenu.donate": "https://ko-fi.com/dasikigaijin",

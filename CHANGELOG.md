@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.17+26.3] - 2026-10-20
+
+### Fixed
+- **Velocity Synchronization**: Restored server-to-client velocity synchronization by asserting `entity.hurtMarked = true;` during item pull vectors.
+- **Runtime Safety & Anti-Reflection**: Purged obsolete `ModVersionGuard` reflection and `Class.forName` invocations in compliance with the Knot ClassLoader Runtime Safety Standard.
+- **Platform Metadata**: Aligned Modrinth project metadata and source links in `fabric.mod.json`.
+- **Distribution Integrity**: Fixed release archive output paths and enabled automated External Vault sync.
+
 ## [1.3.16+26.3] - 2026-10-18
 
 ### Changed
