@@ -6,7 +6,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class MagnetModClient implements ClientModInitializer {
         }
     }
 
-    public static final KeyMapping toggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+    public static final KeyMapping toggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
         "key.ig_magnet.toggle",
         ig_magnet$getKeyboardType(),
         GLFW.GLFW_KEY_BACKSLASH,
@@ -46,11 +46,11 @@ public class MagnetModClient implements ClientModInitializer {
 
                     ClientPlayNetworking.send(new MagnetTogglePayload(newState));
 
-                    // Verified against: Gui.java (26.2+) and Hud.java (26.2+)
+                    // Verified against: Gui.java (26.1.2)
                     if (newState) {
-                        client.gui.hud.setOverlayMessage(Component.translatable("chat.ig_magnet.enabled"), true);
+                        client.gui.setOverlayMessage(Component.translatable("chat.ig_magnet.enabled"), true);
                     } else {
-                        client.gui.hud.setOverlayMessage(Component.translatable("chat.ig_magnet.disabled"), true);
+                        client.gui.setOverlayMessage(Component.translatable("chat.ig_magnet.disabled"), true);
                     }
                 }
             }

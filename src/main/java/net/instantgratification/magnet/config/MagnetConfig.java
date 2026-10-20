@@ -61,16 +61,10 @@ public class MagnetConfig {
 
     public static synchronized void load(Path configDir) {
         CONFIG_PATH = configDir.resolve("ig_magnet.json");
-        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("Magnet Mod Config");
-        INSTANCE = net.dasik.social.api.config.ConfigHelper.load(
+        INSTANCE = net.dasik.social.api.config.ConfigHelper.loadOrCreate(
                 CONFIG_PATH,
-                INSTANCE,
                 MagnetConfig.class,
-                VERSION,
-                config -> config.configVersion,
-                (config, ver) -> config.configVersion = ver,
-                "/ig_magnet.json",
-                logger
+                MagnetConfig::new
         );
     }
 
@@ -78,8 +72,7 @@ public class MagnetConfig {
         if (CONFIG_PATH == null) return;
         net.dasik.social.api.config.ConfigHelper.save(
                 CONFIG_PATH,
-                INSTANCE,
-                org.slf4j.LoggerFactory.getLogger("Magnet Mod Config")
+                INSTANCE
         );
     }
 
