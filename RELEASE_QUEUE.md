@@ -5,7 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **1.3.17+26.2** (2026-10-20) - - **Runtime Safety**: Purged `ModVersionGuard` reflection in compliance with Knot ClassLoader runtime safety. - - **Metadata & Build**: Aligned Modrinth metadata in `fabric.mod.json` and enabled 4-point archive sync.
+- [x] **1.3.17+26.2** (2026-10-20) - - **Runtime Safety**: Purged `ModVersionGuard` reflection in compliance with Knot ClassLoader runtime safety. - - **Metadata & Build**: Aligned Modrinth metadata in `fabric.mod.json` and enabled 4-point archive sync.
 - [x] **1.3.16+26.2** (SUPERSEDED) (2026-10-18) - - **UniversalConfigScreen Migration**: Migrated in-game config to DasikLibrary UniversalConfigScreen and @ConfigOption architecture (superseded by 1.3.17+26.2).
 - [x] **1.3.14+26.2** (SUPERSEDED) (2026-09-05) - - **DasikLibrary 1.8.39 Alignment**: Upgraded to DasikLibrary 1.8.39 (superseded by 1.3.17+26.2).
 - [x] **1.3.13+26.2** (SUPERSEDED) (2026-09-05) - - **Client Side-Safety Annotations**: Annotated YaclScreenHelper, ModMenuIntegration, and MagnetModClient with @Environment(EnvType.CLIENT) (superseded by 1.3.17+26.2).
