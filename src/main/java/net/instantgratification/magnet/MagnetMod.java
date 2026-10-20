@@ -1,4 +1,5 @@
-// Verified against: FabricLoader.java (26.1.2)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: FabricLoader.java (26.2+)
 package net.instantgratification.magnet;
 
 import net.fabricmc.api.ModInitializer;
@@ -16,6 +17,7 @@ public class MagnetMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
         LOGGER.info("Magnet, Let me get that! Initializing...");
         MagnetConfig.load(FabricLoader.getInstance().getConfigDir());
         ModGameRules.register();
@@ -26,7 +28,30 @@ public class MagnetMod implements ModInitializer {
 
         // Register Server-side Packet Receiver (C2S)
         ServerPlayNetworking.registerGlobalReceiver(MagnetTogglePayload.TYPE, (payload, context) -> {
-            MagnetPlayerState.setMagnetEnabled(context.player(), payload.enabled());
+            context.server().execute(() -> {
+                MagnetDebugLogger.log("MagnetMod: Server received packet from %s (%s) enabled=%b", context.player().getScoreboardName(), context.player().getUUID(), payload.enabled());
+                ((IMagnetPlayer) context.player()).ig_magnet$setMagnetEnabled(payload.enabled());
+            });
+        });
+
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            boolean isEnabled = ((IMagnetPlayer) handler.player).ig_magnet$isMagnetEnabled();
+            MagnetDebugLogger.log("MagnetMod: Player %s (%s) joined. Syncing enabled=%b", handler.player.getScoreboardName(), handler.player.getUUID(), isEnabled);
+            ServerPlayNetworking.send(handler.player, new MagnetTogglePayload(isEnabled));
+        });
+
+        // Copy player toggle state across death, respawn, and dimension travel
+        net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+            boolean isEnabled = ((IMagnetPlayer) oldPlayer).ig_magnet$isMagnetEnabled();
+            ((IMagnetPlayer) newPlayer).ig_magnet$setMagnetEnabled(isEnabled);
+            MagnetDebugLogger.log("MagnetMod: COPY_FROM from %s to %s (alive=%b) value=%b", oldPlayer.getScoreboardName(), newPlayer.getScoreboardName(), alive, isEnabled);
+        });
+
+        // Sync magnet state to client after respawn (new player entity needs fresh sync)
+        net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            boolean isEnabled = ((IMagnetPlayer) newPlayer).ig_magnet$isMagnetEnabled();
+            MagnetDebugLogger.log("MagnetMod: AFTER_RESPAWN for %s (%s) enabled=%b", newPlayer.getScoreboardName(), newPlayer.getUUID(), isEnabled);
+            ServerPlayNetworking.send(newPlayer, new MagnetTogglePayload(isEnabled));
         });
 
         // Register Commands

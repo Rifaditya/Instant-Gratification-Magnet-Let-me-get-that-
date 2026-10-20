@@ -1,4 +1,5 @@
-// Verified against: Entity.java (26.1.2)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Entity.java (26.2+)
 package net.instantgratification.magnet;
 
 import net.instantgratification.magnet.registry.ModGameRules;
@@ -27,13 +28,13 @@ public class MagnetMovement {
             int range = ModGameRules.getInt(level, ModGameRules.MAGNET_RANGE);
             // Primary Pass: Solid Walls (360° spherical line-of-sight check with 0.3m contact tolerance)
             boolean canSee = net.dasik.social.api.vision.PlayerVisionTracker.canSee(player, entity, (double) range, 360.0);
-
+            
             // Secondary Pass: Granular Configuration (Glass, Flora, Entities)
             if (canSee) {
                 boolean blockTransparent = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_TRANSPARENT);
                 boolean blockFlora = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_FLORA);
                 boolean blockEntities = ModGameRules.getBoolean(level, ModGameRules.MAGNET_BLOCKED_BY_BLOCK_ENTITIES);
-
+                
                 if (blockTransparent || blockFlora || blockEntities) {
                     canSee = SecondaryVisionCheck.canSee(player, entity, blockTransparent, blockFlora, blockEntities);
                 }
@@ -43,19 +44,28 @@ public class MagnetMovement {
                 if (ModGameRules.getBoolean(level, ModGameRules.MAGNET_KEEP_MOVING_IF_UNSEEN)) {
                     // If it's unseen, it MUST have been magnetized before to continue.
                     // Using the injected Mixin flag, not scoreboard tags (no such API in Snapshot 26.1).
-                    if (!((IMagnetEntity) entity).ig$isMagnetized()) {
+                    if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
+                        if (entity.tickCount % 40 == 0) {
+                            MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: LOS check failed (unmagnetized).", player.getScoreboardName(), player.getUUID(), entity.getId());
+                        }
                         return;
                     }
                 } else {
+                    if (entity.tickCount % 40 == 0) {
+                        MagnetDebugLogger.log("MagnetMovement: Pull rejected for %s (%s) on entity %d. Reason: Strict LOS check failed.", player.getScoreboardName(), player.getUUID(), entity.getId());
+                    }
                     return; // Strict LOS requirement
                 }
             } else {
                 // It is seen! Flag it so it can keep moving if it loses LOS later.
-                ((IMagnetEntity) entity).ig$setMagnetized();
+                if (!((IMagnetEntity) entity).ig_magnet$isMagnetized()) {
+                    MagnetDebugLogger.log("MagnetMovement: Entity %d is now magnetized by %s (%s).", entity.getId(), player.getScoreboardName(), player.getUUID());
+                }
+                ((IMagnetEntity) entity).ig_magnet$setMagnetized();
             }
         } else {
             // Magnet is in normal mode, flag it anyway in case settings change mid-flight
-            ((IMagnetEntity) entity).ig$setMagnetized();
+            ((IMagnetEntity) entity).ig_magnet$setMagnetized();
         }
 
         // 2. Physics Config
@@ -104,7 +114,7 @@ public class MagnetMovement {
             // Only apply noPhysics if actually moving fast toward the player
             // to prevent falling through the floor indefinitely when stopped.
             if (distSqr > 1.0) {
-                 ((IMagnetEntity) entity).ig$setMagnetNoClip();
+                 ((IMagnetEntity) entity).ig_magnet$setMagnetNoClip();
             }
         }
 

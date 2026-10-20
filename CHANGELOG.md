@@ -2,7 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [1.3.17+26.1.2] - 2026-10-20
+
+### Fixed
+- **Velocity Synchronization**: Restored server-to-client velocity synchronization by asserting `entity.hurtMarked = true;` during item pull vectors.
+- **Runtime Safety & Anti-Reflection**: Purged obsolete `ModVersionGuard` reflection and `Class.forName` invocations in compliance with Knot ClassLoader runtime safety.
+- **Platform Metadata**: Aligned Modrinth project metadata and source links in `fabric.mod.json`.
+- **Distribution Integrity**: Fixed release archive output paths and enabled automated External Vault sync.
+
+### Changed
+- **UniversalConfigScreen Migration**: Migrated in-game configuration screen to DasikLibrary's `UniversalConfigScreen` and `@ConfigOption` architecture, purging legacy YACL boilerplate.
+- **Automated Creator Support**: Embedded Ko-fi and Discord creator support touchpoints into all configuration categories.
+- **Live GameRule Synchronization**: Adjusting client GUI sliders now synchronizes in real time with active world GameRules.
+- **Dependency Update**: Upgraded to DasikLibrary 1.11.2 and Fabric Loader 0.19.5.
+
+## [1.1.4+26.1.2] - 2026-09-05
+
+### Changed
+- **Config Uniformity**: Added top-pinned Ko-fi creator support button across Speeds, LOS, and Visuals categories.
+- **Localization Polish**: Reframed config warning and removed repetitive notice boilerplate from option descriptions in `en_us.json`.
+
+## [1.1.3+26.1.2] - 2026-09-05
+
+### Changed
+- **YACL v3 Migration**: Migrated in-game configuration GUI from Cloth Config to YetAnotherConfigLib v3 (YACL) for unified cross-version consistency.
+- **Creator Support**: Integrated top-pinned Ko-fi support button into General configuration category.
+- **Dependency Alignment**: Upgraded DasikLibrary dependency to 1.8.38.
 
 ## [1.1.2+26.1.2] - 2026-08-19
 

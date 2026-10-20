@@ -14,7 +14,9 @@ repositories {
     mavenLocal()
     maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.terraformersmc.com/releases/" }
+    maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.isxander.dev/releases" }
+    maven { url = "https://api.modrinth.com/maven" }
     mavenCentral()
 }
 
@@ -29,11 +31,13 @@ dependencies {
         exclude group: "net.fabricmc"
     }
 
-    compileOnly "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
-    runtimeOnly "dev.isxander:yet-another-config-lib:3.9.5+26.2-fabric"
+    // Optional GUI Dependencies (compile-only required, runtime-optional for players)
+    compileOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+    runtimeOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}"
 
-    compileOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
-    runtimeOnly "com.terraformersmc:modmenu:18.0.0-beta.1"
+    compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    runtimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    testImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
     testImplementation platform('org.junit:junit-bom:5.10.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -74,14 +78,33 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archives_base_name}" }
     }
+    manifest {
+        attributes(
+            'Implementation-Title': project.archives_base_name,
+            'Implementation-Version': project.mod_version,
+            'Implementation-Vendor': 'Dasik (Rifaditya)',
+            'X-Origin-Author': 'Dasik (Rifaditya)',
+            'X-Origin-Repository': 'https://github.com/Rifaditya',
+            'X-Origin-License': 'GNU GPLv3'
+        )
+    }
 }
 
 tasks.register('archiveReleaseJar') {
     dependsOn 'build'
     doLast {
-        def archiveDir = file("${project.rootDir}/../../Archive Jar of all versions/MC 26.1.2")
+        def mcVer = project.hasProperty('minecraft_version') ? project.minecraft_version.toString() : ""
+        def targetSubdir = mcVer.startsWith("26.3") ? "MC 26.3" :
+                           mcVer.startsWith("26.2") ? "MC 26.2" :
+                           mcVer.startsWith("26.1") ? "MC 26.1" :
+                           mcVer.startsWith("1.21.11") ? "MC 1.21.11" :
+                           mcVer.startsWith("1.21") ? "MC 1.21.1" :
+                           mcVer.startsWith("1.20") ? "MC 1.20.1" : "MC Unknown"
+
+        // 1. Central Versioned Archive
+        def archiveDir = file("${project.rootDir}/../Archive Jar of all versions/${targetSubdir}")
         archiveDir.mkdirs()
-        def jarFile = tasks.named('jar', Jar).get().archiveFile.get().asFile
+        def jarFile = (tasks.findByName('remapJar') ?: tasks.findByName('jar')).archiveFile.get().asFile
         if (jarFile.exists()) {
             copy {
                 from jarFile
@@ -90,23 +113,40 @@ tasks.register('archiveReleaseJar') {
             println "[AUTO-ARCHIVE] Successfully copied ${jarFile.name} to central Archive directory: ${archiveDir.absolutePath}"
         }
 
-        // Modrinth Profile Sync
-        def profileDir = file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.1.2/mods")
-        if (profileDir.exists()) {
-            profileDir.listFiles().each { file ->
-                if (file.name.startsWith(project.archives_base_name) && file.name.endsWith(".jar") && !file.name.equals(jarFile.name)) {
-                    file.delete()
-                    println "[MODRINTH-SYNC] Purged old version from launcher profile: ${file.name}"
+        // 2. Dynamic Modrinth Profile Sync (Strictly matching target Minecraft version)
+        def targetProfiles = mcVer.startsWith("26.3") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/26.3/mods"),
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.3ish/mods")
+        ] : mcVer.startsWith("26.2") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.2 (1)/mods"),
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.x test the latest/mods")
+        ] : mcVer.startsWith("26.1") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.1.2/mods")
+        ] : mcVer.startsWith("1.21.11") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 1.21.11/mods")
+        ] : mcVer.startsWith("1.21") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 1.21.1/mods")
+        ] : mcVer.startsWith("1.20") ? [
+            file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 1.20.1/mods")
+        ] : []
+
+        targetProfiles.each { profileMods ->
+            if (profileMods.exists()) {
+                profileMods.listFiles().each { file ->
+                    if ((file.name.startsWith(project.archives_base_name) || file.name.toLowerCase().contains("magnet")) && file.name.endsWith(".jar") && !file.name.equals(jarFile.name)) {
+                        file.delete()
+                        println "[MODRINTH-SYNC] Purged old version from launcher profile: ${file.name}"
+                    }
                 }
+                copy {
+                    from jarFile
+                    into profileMods
+                }
+                println "[MODRINTH-SYNC] Deployed ${jarFile.name} to ${profileMods.absolutePath}"
             }
-            copy {
-                from jarFile
-                into profileDir
-            }
-            println "[MODRINTH-SYNC] Deployed ${jarFile.name} to ${profileDir.absolutePath}"
         }
 
-        // Central Release Hub Archives Sync
+        // 3. Central Release Hub Archives Sync
         File hubCandidate = projectDir
         File hubDir = null
         while (hubCandidate != null) {
@@ -146,6 +186,21 @@ tasks.register('archiveReleaseJar') {
                     println "[HUB-ARCHIVE] Note: Could not copy to release hub: ${e.message}"
                 }
             }
+        }
+
+        // 4. External Vault Sync (D:\)
+        try {
+            File externalVault = new File("D:/Minecraft Mod Archive Jars/Magnet")
+            if (externalVault.exists() || new File("D:/").exists()) {
+                externalVault.mkdirs()
+                copy {
+                    from jarFile
+                    into externalVault
+                }
+                println "[EXTERNAL-VAULT] Successfully copied ${jarFile.name} to external vault: ${externalVault.absolutePath}"
+            }
+        } catch (Exception e) {
+            println "[EXTERNAL-VAULT] Note: Could not copy to external vault: ${e.message}"
         }
     }
 }

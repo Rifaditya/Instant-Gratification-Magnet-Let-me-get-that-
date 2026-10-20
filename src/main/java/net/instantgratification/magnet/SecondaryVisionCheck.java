@@ -17,15 +17,27 @@ public final class SecondaryVisionCheck {
 
     private SecondaryVisionCheck() {}
 
-    private record VisionContext(
-            Level level,
-            boolean blockTransparent,
-            boolean blockFlora,
-            boolean blockEntities,
-            CollisionContext collisionContext,
-            Vec3 start,
-            Vec3 end
-    ) {}
+    private static final ThreadLocal<Context> CONTEXT = ThreadLocal.withInitial(Context::new);
+
+    private static class Context {
+        Level level;
+        boolean blockTransparent;
+        boolean blockFlora;
+        boolean blockEntities;
+        CollisionContext collisionContext;
+        Vec3 start;
+        Vec3 end;
+
+        void set(Level level, boolean blockTransparent, boolean blockFlora, boolean blockEntities, CollisionContext collisionContext, Vec3 start, Vec3 end) {
+            this.level = level;
+            this.blockTransparent = blockTransparent;
+            this.blockFlora = blockFlora;
+            this.blockEntities = blockEntities;
+            this.collisionContext = collisionContext;
+            this.start = start;
+            this.end = end;
+        }
+    }
 
     /**
      * Performs a granular block state check if the primary PlayerVisionTracker passes.
@@ -51,15 +63,16 @@ public final class SecondaryVisionCheck {
         Vec3 end = new Vec3(target.getX(), target.getY() + target.getBbHeight() / 2.0, target.getZ());
         CollisionContext collisionContext = CollisionContext.of(player);
 
-        VisionContext context = new VisionContext(level, blockTransparent, blockFlora, blockEntities, collisionContext, start, end);
+        Context context = CONTEXT.get();
+        context.set(level, blockTransparent, blockFlora, blockEntities, collisionContext, start, end);
 
         Boolean result = BlockGetter.traverseBlocks(start, end, context, SecondaryVisionCheck::checkBlock, ctx -> true);
 
         return result != null ? result : true;
     }
 
-    private static Boolean checkBlock(VisionContext ctx, BlockPos pos) {
-        BlockState state = ctx.level().getBlockState(pos);
+    private static Boolean checkBlock(Context ctx, BlockPos pos) {
+        BlockState state = ctx.level.getBlockState(pos);
 
         // Skip air entirely
         if (state.isAir()) {
@@ -67,24 +80,28 @@ public final class SecondaryVisionCheck {
         }
 
         // 1. Flora Check
-        if (ctx.blockFlora()) {
+        if (ctx.blockFlora) {
             if (state.getBlock() instanceof BushBlock || state.getBlock() instanceof LeavesBlock) {
                 return false; // Path blocked
             }
         }
 
         // 2. Block Entity Check (Chests, Beds, Shulkers, Banners, etc.)
-        if (ctx.blockEntities()) {
+        if (ctx.blockEntities) {
             if (state.hasBlockEntity()) {
                 return false; // Path blocked
             }
         }
 
         // 3. Transparent / Non-Full Block Check
-        if (ctx.blockTransparent()) {
-            VoxelShape visualShape = state.getVisualShape(ctx.level(), pos, ctx.collisionContext());
+        if (ctx.blockTransparent) {
+            // If the visual shape is not empty, it could block.
+            // Note: PlayerVisionTracker uses ClipContext.Block.VISUAL which IGNORES glass/water.
+            // We want to manually test if the Visual shape interacts with the ray.
+            VoxelShape visualShape = state.getVisualShape(ctx.level, pos, ctx.collisionContext);
             if (!visualShape.isEmpty()) {
-                 if (visualShape.clip(ctx.start(), ctx.end(), pos) != null) {
+                 // Need to see if our specific ray actually hits the shape, not just passes through the block's space.
+                 if (visualShape.clip(ctx.start, ctx.end, pos) != null) {
                      return false; // Ray hit the non-full/transparent visual shape
                  }
             }

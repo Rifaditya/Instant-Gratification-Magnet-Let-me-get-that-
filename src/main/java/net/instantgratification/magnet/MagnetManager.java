@@ -1,4 +1,5 @@
-// Verified against: LocalPlayer.java (26.1.2)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: LocalPlayer.java (26.2+)
 package net.instantgratification.magnet;
 
 import net.instantgratification.magnet.registry.ModGameRules;
@@ -17,7 +18,7 @@ public class MagnetManager {
             return;
 
         // Player-specific toggle check
-        if (!MagnetPlayerState.isMagnetEnabled(player))
+        if (!((IMagnetPlayer) player).ig_magnet$isMagnetEnabled())
             return;
 
         // 0. Master Toggle

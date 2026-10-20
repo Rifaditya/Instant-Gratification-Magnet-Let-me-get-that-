@@ -1,4 +1,5 @@
-// Verified against: Entity.java (26.1.2)
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Entity.java (26.2+)
 package net.instantgratification.magnet.mixin;
 
 import net.instantgratification.magnet.IMagnetEntity;
@@ -24,22 +25,22 @@ public abstract class MixinEntity implements IMagnetEntity {
     private boolean ig_magnet$originalNoPhysics = false;
 
     @Override
-    public void ig$setMagnetNoClip() {
+    public void ig_magnet$setMagnetNoClip() {
         this.ig_magnet$noClipTicks = 2; // Lasts 2 ticks after being pulled
     }
 
     @Override
-    public boolean ig$isMagnetNoClip() {
+    public boolean ig_magnet$isMagnetNoClip() {
         return this.ig_magnet$noClipTicks > 0;
     }
 
     @Override
-    public void ig$setMagnetized() {
+    public void ig_magnet$setMagnetized() {
         this.ig_magnet$magnetized = true;
     }
 
     @Override
-    public boolean ig$isMagnetized() {
+    public boolean ig_magnet$isMagnetized() {
         return this.ig_magnet$magnetized;
     }
 

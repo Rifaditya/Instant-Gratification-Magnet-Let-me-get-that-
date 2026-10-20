@@ -64,7 +64,11 @@ build_log_utf8.txt
 # Build Logs
 build_log.txt
 build_log_utf8.txt
-*log*
+
+# Core Manifest Whitelist
+!CHANGELOG.md
+!BACKLOG.md
+!History.md
 
 # Zenith Core Exclusion Policy
 Doc/Marketing/
@@ -75,3 +79,6 @@ Archive Jar of all versions/
 # Platform Publisher API Token Security Vault
 *platform_tokens.json
 .agents/config/platform_tokens.json
+
+# Scratch files
+build*_*.java
