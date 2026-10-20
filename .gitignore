@@ -65,6 +65,11 @@ build_log_utf8.txt
 build_log.txt
 build_log_utf8.txt
 
+# Core Manifest Whitelist
+!CHANGELOG.md
+!BACKLOG.md
+!History.md
+
 # Zenith Core Exclusion Policy
 Doc/Marketing/
 
@@ -77,4 +82,3 @@ Archive Jar of all versions/
 
 # Scratch files
 build*_*.java
-

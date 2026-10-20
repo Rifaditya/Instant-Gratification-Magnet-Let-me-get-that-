@@ -1,35 +1,37 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.instantgratification.magnet.registry;
 
+import net.instantgratification.magnet.MagnetMod;
 import net.instantgratification.magnet.config.MagnetConfig;
 import net.dasik.social.api.gamerule.DynamicGameRuleManager;
-import net.minecraft.resources.Identifier;
+import net.fabricmc.fabric.api.gamerule.v1.CustomGameRuleCategory;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gamerules.GameRule;
-import net.minecraft.world.level.gamerules.GameRuleCategory;
 
 public class ModGameRules {
 
-    public static final GameRuleCategory MAGNET_CATEGORY = DynamicGameRuleManager
-            .registerCategory(Identifier.parse("magnet:magnet_category"));
+    public static final CustomGameRuleCategory MAGNET_CATEGORY = DynamicGameRuleManager
+            .registerCategory(ResourceLocation.fromNamespaceAndPath(MagnetMod.MOD_ID, "magnet_category"), Component.translatable("gamerule.category.magnet.magnet_category"));
 
-    public static GameRule<Boolean> MAGNET_ENABLED;
-    public static GameRule<Integer> MAGNET_RANGE;
-    public static GameRule<Boolean> MAGNET_AFFECTS_XP;
-    public static GameRule<Boolean> MAGNET_NOCLIP;
-    public static GameRule<Boolean> MAGNET_PARTICLES;
-    public static GameRule<Integer> MAGNET_PARTICLE_COUNT;
-    public static GameRule<Integer> MAGNET_MAX_PARTICLE_SOURCES;
-    public static GameRule<Integer> MAGNET_SPEED_PERCENT;
-    public static GameRule<Integer> MAGNET_ACCELERATION_PERCENT;
-    public static GameRule<Boolean> MAGNET_INSTANT;
-    public static GameRule<Boolean> MAGNET_LOS_ONLY;
-    public static GameRule<Boolean> MAGNET_KEEP_MOVING_IF_UNSEEN;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_ENABLED;
+    public static GameRules.Key<GameRules.IntegerValue> MAGNET_RANGE;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_AFFECTS_XP;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_NOCLIP;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_PARTICLES;
+    public static GameRules.Key<GameRules.IntegerValue> MAGNET_PARTICLE_COUNT;
+    public static GameRules.Key<GameRules.IntegerValue> MAGNET_MAX_PARTICLE_SOURCES;
+    public static GameRules.Key<GameRules.IntegerValue> MAGNET_SPEED_PERCENT;
+    public static GameRules.Key<GameRules.IntegerValue> MAGNET_ACCELERATION_PERCENT;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_INSTANT;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_LOS_ONLY;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_KEEP_MOVING_IF_UNSEEN;
 
     // Advanced LOS Configuration
-    public static GameRule<Boolean> MAGNET_BLOCKED_BY_TRANSPARENT;
-    public static GameRule<Boolean> MAGNET_BLOCKED_BY_FLORA;
-    public static GameRule<Boolean> MAGNET_BLOCKED_BY_BLOCK_ENTITIES;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_BLOCKED_BY_TRANSPARENT;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_BLOCKED_BY_FLORA;
+    public static GameRules.Key<GameRules.BooleanValue> MAGNET_BLOCKED_BY_BLOCK_ENTITIES;
 
     public static void register() {
         MagnetConfig config = MagnetConfig.get();
@@ -103,11 +105,11 @@ public class ModGameRules {
                 .register();
     }
 
-    public static int getInt(Level level, GameRule<Integer> rule) {
+    public static int getInt(Level level, GameRules.Key<GameRules.IntegerValue> rule) {
         return DynamicGameRuleManager.getInt(level, rule);
     }
 
-    public static boolean getBoolean(Level level, GameRule<Boolean> rule) {
+    public static boolean getBoolean(Level level, GameRules.Key<GameRules.BooleanValue> rule) {
         return DynamicGameRuleManager.getBoolean(level, rule);
     }
 }

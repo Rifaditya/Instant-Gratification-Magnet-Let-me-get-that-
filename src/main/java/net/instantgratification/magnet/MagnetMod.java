@@ -23,8 +23,8 @@ public class MagnetMod implements ModInitializer {
         ModGameRules.register();
 
         // Register Networking Payloads
-        PayloadTypeRegistry.serverboundPlay().register(MagnetTogglePayload.TYPE, MagnetTogglePayload.CODEC);
-        PayloadTypeRegistry.clientboundPlay().register(MagnetTogglePayload.TYPE, MagnetTogglePayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(MagnetTogglePayload.TYPE, MagnetTogglePayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(MagnetTogglePayload.TYPE, MagnetTogglePayload.CODEC);
 
         // Register Server-side Packet Receiver (C2S)
         ServerPlayNetworking.registerGlobalReceiver(MagnetTogglePayload.TYPE, (payload, context) -> {

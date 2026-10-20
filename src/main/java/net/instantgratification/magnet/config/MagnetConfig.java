@@ -2,7 +2,9 @@
 package net.instantgratification.magnet.config;
 
 import java.nio.file.Path;
+import net.dasik.social.api.config.ConfigHelper;
 import net.dasik.social.api.config.ConfigOption;
+import net.instantgratification.magnet.MagnetMod;
 
 public class MagnetConfig {
     public static final String MOD_ID = "ig_magnet";
@@ -61,26 +63,21 @@ public class MagnetConfig {
 
     public static synchronized void load(Path configDir) {
         CONFIG_PATH = configDir.resolve("ig_magnet.json");
-        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("Magnet Mod Config");
-        INSTANCE = net.dasik.social.api.config.ConfigHelper.load(
+        INSTANCE = ConfigHelper.load(
                 CONFIG_PATH,
                 INSTANCE,
                 MagnetConfig.class,
                 VERSION,
-                config -> config.configVersion,
-                (config, ver) -> config.configVersion = ver,
-                "/ig_magnet.json",
-                logger
+                cfg -> cfg.configVersion,
+                (cfg, ver) -> cfg.configVersion = ver,
+                null,
+                MagnetMod.LOGGER
         );
     }
 
     public static synchronized void save() {
         if (CONFIG_PATH == null) return;
-        net.dasik.social.api.config.ConfigHelper.save(
-                CONFIG_PATH,
-                INSTANCE,
-                org.slf4j.LoggerFactory.getLogger("Magnet Mod Config")
-        );
+        ConfigHelper.save(CONFIG_PATH, INSTANCE, MagnetMod.LOGGER);
     }
 
     public static MagnetConfig get() {

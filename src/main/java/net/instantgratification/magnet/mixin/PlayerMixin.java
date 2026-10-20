@@ -3,6 +3,7 @@ package net.instantgratification.magnet.mixin;
 
 import net.instantgratification.magnet.MagnetManager;
 import net.instantgratification.magnet.registry.ModGameRules;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -16,11 +17,6 @@ import net.instantgratification.magnet.IMagnetPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.instantgratification.magnet.MagnetTogglePayload;
-import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.level.storage.ValueInput;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Mixin(Player.class)
 public class PlayerMixin implements IMagnetPlayer {
@@ -68,17 +64,21 @@ public class PlayerMixin implements IMagnetPlayer {
         }
     }
 
-    // Verified against: Player.java (26.2+) - addAdditionalSaveData(ValueOutput)
+    // Verified against: Player.java (1.21.1) - addAdditionalSaveData(CompoundTag)
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void ig_magnet$addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
-        output.putBoolean("ig_magnet_enabled", this.ig_magnet$enabled);
+    private void ig_magnet$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        tag.putBoolean("ig_magnet_enabled", this.ig_magnet$enabled);
     }
 
-    // Verified against: Player.java (26.2+) - readAdditionalSaveData(ValueInput)
+    // Verified against: Player.java (1.21.1) - readAdditionalSaveData(CompoundTag)
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void ig_magnet$readAdditionalSaveData(ValueInput input, CallbackInfo ci) {
+    private void ig_magnet$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        if (tag.contains("ig_magnet_enabled")) {
+            this.ig_magnet$enabled = tag.getBoolean("ig_magnet_enabled");
+        } else {
+            this.ig_magnet$enabled = true;
+        }
         Player player = (Player) (Object) this;
-        this.ig_magnet$enabled = input.getBooleanOr("ig_magnet_enabled", true);
         net.instantgratification.magnet.MagnetDebugLogger.log("PlayerMixin: readAdditionalSaveData for %s (%s) value=%b", player.getScoreboardName(), player.getUUID(), this.ig_magnet$enabled);
     }
 
