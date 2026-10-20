@@ -6,32 +6,21 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class MagnetModClient implements ClientModInitializer {
-    public static final KeyMapping.Category MAGNET_CATEGORY = KeyMapping.Category.register(
-        Identifier.fromNamespaceAndPath(MagnetMod.MOD_ID, "magnet")
-    );
 
-    private static InputConstants.Type ig_magnet$getKeyboardType() {
-        try {
-            return Enum.valueOf(InputConstants.Type.class, "KEYBOARD");
-        } catch (IllegalArgumentException e) {
-            return Enum.valueOf(InputConstants.Type.class, "KEYSYM");
-        }
-    }
-
-    public static final KeyMapping toggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+    public static final KeyMapping toggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
         "key.ig_magnet.toggle",
-        ig_magnet$getKeyboardType(),
+        InputConstants.Type.KEYSYM,
         GLFW.GLFW_KEY_BACKSLASH,
-        MAGNET_CATEGORY
+        "key.category.ig_magnet.magnet"
     ));
 
     @Override
@@ -46,23 +35,22 @@ public class MagnetModClient implements ClientModInitializer {
 
                     ClientPlayNetworking.send(new MagnetTogglePayload(newState));
 
-                    // Verified against: Gui.java (26.2+) and Hud.java (26.2+)
+                    // Verified against: Gui.java (1.20.1)
                     if (newState) {
-                        client.gui.hud.setOverlayMessage(Component.translatable("chat.ig_magnet.enabled"), true);
+                        client.gui.setOverlayMessage(Component.translatable("chat.ig_magnet.enabled"), true);
                     } else {
-                        client.gui.hud.setOverlayMessage(Component.translatable("chat.ig_magnet.disabled"), true);
+                        client.gui.setOverlayMessage(Component.translatable("chat.ig_magnet.disabled"), true);
                     }
                 }
             }
         });
 
-        ClientPlayNetworking.registerGlobalReceiver(MagnetTogglePayload.TYPE, (payload, context) -> {
-            context.client().execute(() -> {
-                if (context.player() != null) {
-                    MagnetDebugLogger.log("MagnetModClient: Received S2C sync packet for %s (%s) enabled=%b", context.player().getScoreboardName(), context.player().getUUID(), payload.enabled());
-                    ((IMagnetPlayer) context.player()).ig_magnet$setMagnetEnabled(payload.enabled());
-                } else {
-                    MagnetDebugLogger.log("MagnetModClient: Received S2C sync packet, but context player is null!");
+        ClientPlayNetworking.registerGlobalReceiver(MagnetTogglePayload.TYPE, (packet, player, responseSender) -> {
+            Minecraft client = Minecraft.getInstance();
+            client.execute(() -> {
+                if (client.player instanceof IMagnetPlayer magnetPlayer) {
+                    MagnetDebugLogger.log("MagnetModClient: Received S2C sync packet enabled=%b", packet.enabled());
+                    magnetPlayer.ig_magnet$setMagnetEnabled(packet.enabled());
                 }
             });
         });

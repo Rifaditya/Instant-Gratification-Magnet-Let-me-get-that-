@@ -1,5 +1,5 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
-// Verified against: Entity.java (26.2+)
+// Verified against: Entity.java (1.20.1)
 package net.instantgratification.magnet.mixin;
 
 import net.instantgratification.magnet.IMagnetEntity;
@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity implements IMagnetEntity {
@@ -77,15 +78,15 @@ public abstract class MixinEntity implements IMagnetEntity {
         entity.noPhysics = this.ig_magnet$originalNoPhysics;
     }
 
-    @Inject(method = "applyGravity", at = @At("HEAD"), cancellable = true)
-    private void ig_magnet$conditionalCancelGravity(CallbackInfo ci) {
+    @Inject(method = "isNoGravity", at = @At("HEAD"), cancellable = true)
+    private void ig_magnet$conditionalCancelGravity(CallbackInfoReturnable<Boolean> cir) {
         Entity entity = (Entity) (Object) this;
         if (entity.level().isClientSide()) return;
         if (this.ig_magnet$noClipTicks > 0) {
             // Only cancel gravity if the item is physically inside a block.
             // This preserves the natural clear-air arcs.
             if (!entity.level().noCollision(entity, entity.getBoundingBox().deflate(1.0E-7))) {
-                ci.cancel();
+                cir.setReturnValue(true);
             }
         }
     }

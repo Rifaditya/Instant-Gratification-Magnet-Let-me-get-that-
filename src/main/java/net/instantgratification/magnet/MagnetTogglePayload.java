@@ -1,26 +1,29 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
-// Verified against: CustomPacketPayload.java (26.2+)
+// Verified against: FabricPacket.java (1.20.1)
 package net.instantgratification.magnet;
 
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.fabricmc.fabric.api.networking.v1.FabricPacket;
+import net.fabricmc.fabric.api.networking.v1.PacketType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 
-public record MagnetTogglePayload(boolean enabled) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<MagnetTogglePayload> TYPE = new CustomPacketPayload.Type<>(
-        Identifier.fromNamespaceAndPath(MagnetMod.MOD_ID, "toggle")
-    );
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, MagnetTogglePayload> CODEC = StreamCodec.composite(
-        ByteBufCodecs.BOOL,
-        MagnetTogglePayload::enabled,
+public record MagnetTogglePayload(boolean enabled) implements FabricPacket {
+    public static final PacketType<MagnetTogglePayload> TYPE = PacketType.create(
+        new ResourceLocation(MagnetMod.MOD_ID, "toggle"),
         MagnetTogglePayload::new
     );
 
+    public MagnetTogglePayload(FriendlyByteBuf buf) {
+        this(buf.readBoolean());
+    }
+
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public void write(FriendlyByteBuf buf) {
+        buf.writeBoolean(this.enabled);
+    }
+
+    @Override
+    public PacketType<?> getType() {
         return TYPE;
     }
 }

@@ -1,7 +1,8 @@
 {
     "required": true,
     "package": "net.instantgratification.magnet.mixin",
-    "compatibilityLevel": "JAVA_25",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "ig_magnet.refmap.json",
     "mixins": [
         "PlayerMixin",
         "MixinEntity"
