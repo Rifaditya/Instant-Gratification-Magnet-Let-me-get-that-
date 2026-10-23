@@ -96,7 +96,7 @@ public class PlayerMixin implements IMagnetPlayer {
 
     @ModifyArg(
         method = "aiStep",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"),
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"),
         index = 1
     )
     private AABB ig_magnet$expandPickupArea(AABB pickupArea) {
