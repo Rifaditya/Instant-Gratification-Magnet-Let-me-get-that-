@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.18+26.3] - 2026-10-23
+
+### Fixed
+- **Player Initialization Crash**: Resolved fatal startup crash during player initialization by correcting the mixin injection target on `Player.aiStep` to `Level.getEntities(Entity, AABB)` descriptor.
+
 ## [1.3.17+26.3] - 2026-10-20
 
 ### Fixed
