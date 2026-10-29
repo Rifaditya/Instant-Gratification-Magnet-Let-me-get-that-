@@ -89,7 +89,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Optimized
 - **Tick Gating**: Gated magnet ticking to the server-side to prevent redundant calculations and desync jitter on the client.
-- **Class-Specific Scanning**: Upgraded generic entity scanning to class-specific `getEntitiesOfClass` queries, reducing complexity from $O(N)$ (scanning all entities) to $O(M)$ (scanning only items and XP orbs).
+- **Class-Specific Scanning**: Upgraded generic entity scanning to class-specific `getEntitiesOfClass` queries, reducing complexity from O(N) (scanning all entities) to O(M) (scanning only items and XP orbs).
 
 ## [1.0.3+A-26.1.2] - 2026-06-06
 
